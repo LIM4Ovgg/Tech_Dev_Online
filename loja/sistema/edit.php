@@ -194,7 +194,7 @@
             <div class="container">
                 <div class="row py-3">
                     <div class="col-12 col-md-4 text-center text-md-left">
-                        &copy; 2020 - Quitanda Online Ltda ME<br>
+                        &copy; 2020 - Tech Dev Online Ltda ME<br>
                         Rua Virtual Inexistente, 171, Compulândia/PC <br>
                         CPNJ 99.999.999/0001-99
                     </div>
