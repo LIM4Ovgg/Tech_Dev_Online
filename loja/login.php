@@ -60,7 +60,7 @@
                             <li class="nav-item">
                                 <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0"
                                     title="5 produto(s) no carrinho"><small>5</small></span>
-                                <a href="carrinho.html" class="nav-link text-white">
+                                <a href="carrinho.php" class="nav-link text-white">
                                     <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
                                 </a>
                             </li>

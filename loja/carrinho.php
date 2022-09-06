@@ -24,9 +24,9 @@
 
 <body>
     <div class="d-flex flex-column wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-danger border-bottom shadow-sm mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
             <div class="container">
-                <a class="navbar-brand" href="index.php"><b>Quitanda Online</b></a>
+                <a class="navbar-brand" href="index.php"><b>Tech Dev Online</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -49,7 +49,7 @@
                                 <a href="login.php" class="nav-link text-white">Entrar</a>
                             </li>
                             <li class="nav-item">
-                                <span class="badge rounded-pill bg-light text-danger position-absolute ms-4 mt-0"
+                                <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0"
                                     title="5 produto(s) no carrinho"><small>5</small></span>
                                 <a href="carrinho.html" class="nav-link text-white">
                                     <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
                                 <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
+                                    <b><a href="#" class="text-decoration-none text-info">
                                             Abacate Manteiga</a></b>
                                 </h4>
                                 <h5>
@@ -91,7 +91,7 @@
                                     <button class="btn btn-outline-dark btn-sm" type="button">
                                         <i class="bi-caret-up" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger border-dark btn-sm" type="button">
+                                    <button class="btn btn-outline-info border-dark btn-sm" type="button">
                                         <i class="bi-trash" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
                                 </div>
@@ -111,7 +111,7 @@
                             </div>
                             <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
                                 <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
+                                    <b><a href="#" class="text-decoration-none text-info">
                                             Abacate Manteiga</a></b>
                                 </h4>
                                 <h5>
@@ -128,7 +128,7 @@
                                     <button class="btn btn-outline-dark btn-sm" type="button">
                                         <i class="bi-caret-up" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger border-dark btn-sm" type="button">
+                                    <button class="btn btn-outline-info border-dark btn-sm" type="button">
                                         <i class="bi-trash" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
                                 </div>
@@ -148,7 +148,7 @@
                             </div>
                             <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
                                 <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
+                                    <b><a href="#" class="text-decoration-none text-info">
                                             Abacate Manteiga</a></b>
                                 </h4>
                                 <h5>
@@ -165,7 +165,7 @@
                                     <button class="btn btn-outline-dark btn-sm" type="button">
                                         <i class="bi-caret-up" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger border-dark btn-sm" type="button">
+                                    <button class="btn btn-outline-info border-dark btn-sm" type="button">
                                         <i class="bi-trash" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
                                 </div>
@@ -185,7 +185,7 @@
                             </div>
                             <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
                                 <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
+                                    <b><a href="#" class="text-decoration-none text-info">
                                             Abacate Manteiga</a></b>
                                 </h4>
                                 <h5>
@@ -202,7 +202,7 @@
                                     <button class="btn btn-outline-dark btn-sm" type="button">
                                         <i class="bi-caret-up" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger border-dark btn-sm" type="button">
+                                    <button class="btn btn-outline-info border-dark btn-sm" type="button">
                                         <i class="bi-trash" style="font-size: 16px; line-height: 16px;"></i>
                                     </button>
                                 </div>
@@ -221,7 +221,7 @@
                             <a href="index.html" class="btn btn-outline-success btn-lg">
                                 Continuar Comprando                            
                             </a>
-                            <a href="fechamento_itens.html" class="btn btn-danger btn-lg ms-2 mt-xs-3">Fechar Compra</a>
+                            <a href="fechamento_itens.html" class="btn btn-info btn-lg ms-2 mt-xs-3">Fechar Compra</a>
                         </div>
                     </li>
                 </ul>
@@ -232,7 +232,7 @@
             <div class="container">
                 <div class="row py-3">
                     <div class="col-12 col-md-4 text-center">
-                        &copy; 2020 - Quitanda Online Ltda ME<br>
+                        &copy; 2020 - Tech Dev Online Ltda ME<br>
                         Rua Virtual Inexistente, 171, Compulândia/PC <br>
                         CPNJ 99.999.999/0001-99
                     </div>
