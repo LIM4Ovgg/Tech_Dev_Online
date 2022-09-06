@@ -2,7 +2,7 @@
 
 	$dbHost = 'Localhost';
 	$dbUsername = 'root';
-	$dbPassword = 'Vini2002';
+	$dbPassword = '';
 	$dbName = 'loja';
 
 	$conexao = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
