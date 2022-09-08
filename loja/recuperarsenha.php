@@ -26,7 +26,7 @@
     <div class="d-flex flex-column wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
             <div class="container">
-                <a class="navbar-brand" href="/"><b>Tech Dev Online</b></a>
+                <a class="navbar-brand" href="index.php"><b>Tech Dev Online</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -34,19 +34,19 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/index.html">Principal</a>
+                            <a class="nav-link text-white" href="index.php">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/contato.html">Contato</a>
+                            <a class="nav-link text-white" href="contato.php">Contato</a>
                         </li>
                     </ul>
                     <div class="align-self-end">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="/cadastro.html" class="nav-link text-white">Quero Me Cadastrar</a>
+                                <a href="cadastro.php" class="nav-link text-white">Quero Me Cadastrar</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/login.html" class="nav-link text-white">Entrar</a>
+                                <a href="login.php" class="nav-link text-white">Entrar</a>
                             </li>
                             <li class="nav-item">
                                 <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0"
@@ -68,7 +68,7 @@
                         <h1>Recuperação de Senha</h1>
 
                         <div class="form-floating mb-3">
-                            <input type="email" name="email" id="txtEmail" class="form-control" placeholder=" " autofocus>
+                            <input type="email" name="email" id="txtEmail" class="form-control" placeholder=" " autofocus required>
                             <label for="txtEmail">E-mail</label>
                         </div>
 

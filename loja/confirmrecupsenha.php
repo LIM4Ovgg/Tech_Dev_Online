@@ -6,8 +6,19 @@
     {
         header('Location: sistema.php');
     }
+    if(isset($_POST['email']) && !empty($_POST['email']))
+    {
+        // Acessa
+        include_once('config.php');
 
-    $email = $_POST['email'];
+        $email = $_POST['email'];
+    }
+    else
+    {
+        // Não acessa
+        header('Location: recuperarsenha.php');
+        
+    }
 ?>
 <!doctype html>
 <html lang="pt-br">
