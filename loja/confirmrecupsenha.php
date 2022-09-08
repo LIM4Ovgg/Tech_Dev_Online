@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    include_once('config.php');
+    // print_r($_SESSION);
+    if((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true))
+    {
+        header('Location: sistema.php');
+    }
+
+    $email = $_POST['email'];
+?>
 <!doctype html>
 <html lang="pt-br">
 
@@ -69,7 +80,11 @@
                     Caro cliente,
                 </p>
                 <p>
-                    As instruções para a realização de cadastro de uma nova senha foram enviadas para o e-mail <b>email@dominio.com.br</b>. Abra a mensagem que lhe enviamos e siga as instruções corretamente para cadastrar uma nova senha.
+                    As instruções para a realização de cadastro de uma nova senha foram enviadas para o e-mail <b>
+                        <?php 
+                            echo"$email";
+                        ?>
+                    </b>. Abra a mensagem que lhe enviamos e siga as instruções corretamente para cadastrar uma nova senha.
                 </p>
                 <p>
                     Agradecemos pela confiança em nossos serviços.
@@ -79,7 +94,7 @@
                     Central de Relacionamento Tech Dev Online
                 </p>
                 <p>
-                    <a href="/index.html" class="btn btn-lg btn-info text-white">Voltar à Página Principal</a>
+                    <a href="index.php" class="btn btn-lg btn-info text-white">Voltar à Página Principal</a>
                 </p>
             </div>
         </main>

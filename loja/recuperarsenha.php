@@ -64,16 +64,15 @@
         <main class="flex-fill">
             <div class="container">
                 <div class="row justify-content-center">
-                    <form class="col-sm-10 col-md-8 col-lg-6">
+                    <form class="col-sm-10 col-md-8 col-lg-6" action="confirmrecupsenha.php" method="POST">
                         <h1>Recuperação de Senha</h1>
 
                         <div class="form-floating mb-3">
-                            <input type="email" id="txtEmail" class="form-control" placeholder=" " autofocus>
+                            <input type="email" name="email" id="txtEmail" class="form-control" placeholder=" " autofocus>
                             <label for="txtEmail">E-mail</label>
                         </div>
 
-                        <button type="button" onclick="window.location.href='confirmrecupsenha.php'"
-                            class="btn btn-lg btn-info text-white">Recuperar Senha</button>
+                        <button type="submit" class="btn btn-lg btn-info text-white">Recuperar Senha</button>
 
                         <p class="mt-3">
                             Ainda não é cadastrado? <a href="/cadastro.html">Clique aqui</a> para se cadastrar.
