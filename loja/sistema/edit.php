@@ -26,6 +26,7 @@
                 $referencia = $user_data['referencia'];
                 $senha = $user_data['senha'];
                 $confirm_senha = $user_data['confirm_senha'];
+                $adm = $user_data['adm'];
             }
 
         }
@@ -65,7 +66,7 @@
     <div class="d-flex flex-column wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
             <div class="container">
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand" href="../index.php">
                     <strong>Tech Dev Online</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -181,10 +182,16 @@
                         </div>
                     </div>
                     <hr />
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="adm" value="Yes" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Este usuário tem permissão de <strong>Administrador</strong>.
+                        </label>
+                    </div>
                     <div class="mb-3 text-left">
-                        <a class="btn btn-lg btn-light btn-outline-info" href="sistema.php">Cancelar</a>
+                        <a class="btn btn-lg btn-light btn-outline-info" href="../sistema.php">Cancelar</a>
                         <input type="hidden" name="id" value="<?php echo $id ?>">
-                        <input type="submit" name="update" id="update" value="Salvar Alterações" class="btn btn-lg btn-info"/>
+                        <input type="submit" name="update" id="update" value="Salvar Alterações" class="btn btn-lg btn-info text-white"/>
                     </div>
                 </form>
             </div>

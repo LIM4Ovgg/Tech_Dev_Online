@@ -16,8 +16,13 @@
             $referencia = $_POST['referencia'];
             $senha = $_POST['senha'];
             $confirm_senha = $_POST['confirm_senha'];
-        
-        $sqlUpdate = "UPDATE users SET nome='$nome',cpf='$cpf',data_nasc='$data_nasc',email='$email',telefone='$telefone',cep='$cep',numero='$numero',complemento='$complemento',referencia='$referencia',senha='$senha' WHERE id=$id";
+            if(isset($_POST['adm']))
+            {
+                $adm = $_POST['adm'];
+            }else {
+                $adm = 'No';
+            }
+        $sqlUpdate = "UPDATE users SET nome='$nome',cpf='$cpf',data_nasc='$data_nasc',email='$email',telefone='$telefone',cep='$cep',numero='$numero',complemento='$complemento',referencia='$referencia',senha='$senha',adm='$adm' WHERE id=$id";
 
         $result = $conexao->query($sqlUpdate);
     }

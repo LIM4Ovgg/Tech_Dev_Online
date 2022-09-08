@@ -25,11 +25,12 @@
         $referencia = $_POST['referencia'];
         $senha = $_POST['senha'];
         $confirm_senha = $_POST['confirm_senha'];
+        $adm = 'No';
 
-
-        $result = mysqli_query($conexao, "INSERT INTO users(nome,cpf,data_nasc,email,telefone,cep,numero,complemento,referencia,senha,confirm_senha) VALUES ('$nome','$cpf','$data_nasc','$email','$telefone','$cep','$numero','$complemento','$referencia','$senha','$confirm_senha')");
+        $result = mysqli_query($conexao, "INSERT INTO users(nome,cpf,data_nasc,email,telefone,cep,numero,complemento,referencia,senha,confirm_senha,adm) VALUES ('$nome','$cpf','$data_nasc','$email','$telefone','$cep','$numero','$complemento','$referencia','$senha','$confirm_senha','$adm')");
+        header('Location: login.php');
     }
-
+    
 ?>
 <!doctype html>
 <html lang="pt-br">

@@ -124,6 +124,8 @@
                       <th scope="col">Complemento</th>
                       <th scope="col">Referencia</th>
                       <th scope="col">Senha</th>
+                      <th scope="col">Admin</th>
+                      <th scope="col"></th>
                       <th scope="col">...</th>
                     </tr>
                   </thead>
@@ -143,6 +145,8 @@
                         echo "<td>".$user_data['complemento']."</td>";
                         echo "<td>".$user_data['referencia']."</td>";
                         echo "<td>".$user_data['senha']."</td>";
+                        echo "<td>".$user_data['adm']."</td>";
+                        echo "<td></td>";
 
                         echo "<td>
                                 <a class='btn btn-sm btn-primary' href='edit.php?id=$user_data[id]'>
