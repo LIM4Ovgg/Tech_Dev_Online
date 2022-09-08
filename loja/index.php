@@ -117,7 +117,7 @@
                         <div class="justify-content-center justify-content-md-start mb-3 mb-md-0">
                             <div class="input-group input-group-sm">
                                 <input type="search" class="form-control" placeholder="Digite aqui o que procura" id="pesquisar" autofocus>
-                                <button onclick="searchData()" class="btn btn-info" id="pesquisar">Buscar</button>
+                                <button onclick="searchData()" class="btn btn-info text-white" id="pesquisar">Buscar</button>
                             </div>
                         </div>
                     </div>
