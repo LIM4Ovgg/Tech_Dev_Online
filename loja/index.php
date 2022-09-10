@@ -31,9 +31,9 @@
     <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
 
     <title>Tech Dev Online :: Página Principal</title>
 </head>
@@ -86,16 +86,16 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="3000">
-                        <img src="img/slides/slide01.jpg" class="d-none d-md-block w-100" alt="">
-                        <img src="img/slides/slide01small.jpg" class="d-block d-md-none  w-100" alt="">
+                        <img src="assets/img/slides/slide01.jpg" class="d-none d-md-block w-100" alt="">
+                        <img src="assets/img/slides/slide01small.jpg" class="d-block d-md-none  w-100" alt="">
                     </div>
                     <div class="carousel-item" data-bs-interval="3000">
-                        <img src="img/slides/slide01.jpg" class="d-none d-md-block w-100" alt="">
-                        <img src="img/slides/slide01small.jpg" class="d-block d-md-none  w-100" alt="">
+                        <img src="assets/img/slides/slide01.jpg" class="d-none d-md-block w-100" alt="">
+                        <img src="assets/img/slides/slide01small.jpg" class="d-block d-md-none  w-100" alt="">
                     </div>
                     <div class="carousel-item" data-bs-interval="3000">
-                        <img src="img/slides/slide01.jpg" class="d-none d-md-block w-100" alt="">
-                        <img src="img/slides/slide01small.jpg" class="d-block d-md-none  w-100" alt="">
+                        <img src="assets/img/slides/slide01.jpg" class="d-none d-md-block w-100" alt="">
+                        <img src="assets/img/slides/slide01small.jpg" class="d-block d-md-none  w-100" alt="">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselMain" data-bs-slide="prev">
@@ -165,7 +165,7 @@
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px; color: dodgerblue;"></i>
                             </a>
                             <a href="produto.php">
-                                <img src="img/produtos/000001.jpg" class="card-img-top">
+                                <img src="assets/img/produtos/000001.jpg" class="card-img-top">
                             </a>
                             <div class="card-header">
                                 de <s>R$ 3.361,01</s>
@@ -194,7 +194,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000002.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000002.jpg" class="card-img-top">
                             <div class="card-header">
                                 de <s>R$ 5.024,01</s>
                                 <h5>Por: R$3.599,87</h5>
@@ -219,8 +219,9 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000003.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000003.jpg" class="card-img-top">
                             <div class="card-header">
+                                de <s>R$1.315,49</s>
                                 <h5>R$1.248,99</h5>
                             </div>
                             <div class="card-body">
@@ -244,8 +245,9 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart-fill" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000004.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000004.jpg" class="card-img-top">
                             <div class="card-header">
+                                de <s>R$ 1.099,99</s>
                                 <h5>R$970,00</h5>
                             </div>
                             <div class="card-body">
@@ -267,7 +269,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000005.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000005.jpg" class="card-img-top">
                             <div class="card-header">
                                 De: <s>R$1.699,00 </s>
                                 <h5>por: R$1.260,21</h5>
@@ -291,9 +293,10 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000006.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000006.jpg" class="card-img-top">
                             <div class="card-header">
-                                <h5>R$ 329,90</h5>
+                                de <s>R$ 370,90</s>
+                                <h5>R$ 296,91</h5>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">ObaZapp</h5>
@@ -314,7 +317,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000007.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000007.jpg" class="card-img-top">
                             <div class="card-header">
                                 <h5>R$2.579,98</h5>
                             </div>
@@ -337,7 +340,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000008.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000008.jpg" class="card-img-top">
                             <div class="card-header">
                                 <h5>R$2.579,98</h5>
                             </div>
@@ -360,7 +363,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart-fill" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000009.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000009.jpg" class="card-img-top">
                             <div class="card-header">
                                 <h5>R$2.579,98</h5>
                             </div>
@@ -383,7 +386,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000010.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000010.jpg" class="card-img-top">
                             <div class="card-header">
                                 <h5>R$2.579,98</h5>
                             </div>
@@ -406,7 +409,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000011.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000011.jpg" class="card-img-top">
                             <div class="card-header">
                                 <h5>R$2.579,98</h5>
                             </div>
@@ -429,7 +432,7 @@
                             <a href="#" class="position-absolute end-0 p-2 text-info">
                                 <i class="bi-suit-heart" style="font-size: 24px; line-height: 24px;"></i>
                             </a>
-                            <img src="img/produtos/000012.jpg" class="card-img-top">
+                            <img src="assets/img/produtos/000012.jpg" class="card-img-top">
                             <div class="card-header">
                                 <h5>R$2.579,98</h5>
                             </div>
