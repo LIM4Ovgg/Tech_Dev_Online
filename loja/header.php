@@ -31,7 +31,7 @@
                                 <?php echo $row_count ?>
 
                             </small></span>
-                        <a href="carrinho2.php" class="nav-link text-white">
+                        <a href="carrinho.php" class="nav-link text-white">
                             <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
                         </a>
                     </li>

@@ -1,24 +1,20 @@
 <?php
-    session_start();
-    include_once('../config.php');
-    // print_r($_SESSION);
-    if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true))
-    {
-        unset($_SESSION['email']);
-        unset($_SESSION['senha']);
-        header('Location: ../login.php');
-    }
-    $logado = $_SESSION['email'];
-    if(!empty($_GET['search']))
-    {
-        $data = $_GET['search'];
-        $sql = "SELECT * FROM users WHERE id LIKE '%$data%' or nome LIKE '%$data%' or email LIKE '%$data%' ORDER BY id DESC";
-    }
-    else
-    {
-        $sql = "SELECT * FROM users ORDER BY id DESC";
-    }
-    $result = $conexao->query($sql);
+session_start();
+include_once('../config.php');
+// print_r($_SESSION);
+if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: ../login.php');
+}
+$logado = $_SESSION['email'];
+if (!empty($_GET['search'])) {
+    $data = $_GET['search'];
+    $sql = "SELECT * FROM users WHERE id LIKE '%$data%' or nome LIKE '%$data%' or email LIKE '%$data%' ORDER BY id DESC";
+} else {
+    $sql = "SELECT * FROM users ORDER BY id ASC";
+}
+$result = $conexao->query($sql);
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -39,116 +35,75 @@
 
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../assets/css/estilos.css">
 
     <title>Tech Dev Online :: Página Principal</title>
     <style>
-
-    .box-search {
-    display: flex;
-    justify-content: center;
-    gap: .1%;
-    }
-
+        .box-search {
+            display: flex;
+            justify-content: center;
+            gap: .1%;
+        }
     </style>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="../sistema.php"><b>Tech Dev Sistema</b></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="usuarios.php">Usuários</a>
-                        </li>
-                        <!--
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="contato.html">Contato</a>
-                        </li>
-                        -->
-                    </ul>
-                    <div class="align-self-end">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="../cliente.php" class="nav-link text-white">
-                                    <?php 
-                                    echo"Logado como <b>$logado</b>";
-                               ?>
-                               </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="sair.php" class="nav-link text-white">Sair</a>
-                            </li>
-                            <li class="nav-item">
-                                <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0"
-                                    title="5 produto(s) no carrinho"><small>5</small></span>
-                                <a href="/carrinho.html" class="nav-link text-white">
-                                    <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <?php
+        $sistema = '../' ;
+        require_once('../header_logado.php');
+        ?>
 
 
-            <div class="box-search">
-                <input type="search" class="form-control w-25" placeholder="Pesquisar" id='pesquisar'>
-                <span class="visually-hidden">pesquisar</span>
-                <button onclick="searchData()" class="btn btn-info" style="color: white;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </button>
-            </div>
+        <div class="box-search">
+            <input type="search" class="form-control w-25" placeholder="Pesquisar" id='pesquisar'>
+            <span class="visually-hidden">pesquisar</span>
+            <button onclick="searchData()" class="btn btn-info" style="color: white;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </button>
+        </div>
         <main class="flex-fill">
             <div class="container">
                 <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Nome</th>
-                      <th scope="col">CPF</th>
-                      <th scope="col">Nascimento</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Telefone</th>
-                      <th scope="col">Cep</th>
-                      <th scope="col">Numero</th>
-                      <th scope="col">Complemento</th>
-                      <th scope="col">Referencia</th>
-                      <th scope="col">Senha</th>
-                      <th scope="col">Admin</th>
-                      <th scope="col"></th>
-                      <th scope="col">...</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php 
-                    while($user_data = mysqli_fetch_assoc($result))
-                    {
-                        echo "<tr>";
-                        echo "<td>".$user_data['id']."</td>";
-                        echo "<td>".$user_data['nome']."</td>";
-                        echo "<td>".$user_data['cpf']."</td>";
-                        echo "<td>".$user_data['data_nasc']."</td>";
-                        echo "<td>".$user_data['email']."</td>";
-                        echo "<td>".$user_data['telefone']."</td>";
-                        echo "<td>".$user_data['cep']."</td>";
-                        echo "<td>".$user_data['numero']."</td>";
-                        echo "<td>".$user_data['complemento']."</td>";
-                        echo "<td>".$user_data['referencia']."</td>";
-                        echo "<td>".$user_data['senha']."</td>";
-                        echo "<td>".$user_data['adm']."</td>";
-                        echo "<td></td>";
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Nascimento</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Cep</th>
+                            <th scope="col">Numero</th>
+                            <th scope="col">Complemento</th>
+                            <th scope="col">Referencia</th>
+                            <th scope="col">Senha</th>
+                            <th scope="col">Admin</th>
+                            <th scope="col"></th>
+                            <th scope="col">...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($user_data = mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>" . $user_data['id'] . "</td>";
+                            echo "<td>" . $user_data['nome'] . "</td>";
+                            echo "<td>" . $user_data['cpf'] . "</td>";
+                            echo "<td>" . $user_data['data_nasc'] . "</td>";
+                            echo "<td>" . $user_data['email'] . "</td>";
+                            echo "<td>" . $user_data['telefone'] . "</td>";
+                            echo "<td>" . $user_data['cep'] . "</td>";
+                            echo "<td>" . $user_data['numero'] . "</td>";
+                            echo "<td>" . $user_data['complemento'] . "</td>";
+                            echo "<td>" . $user_data['referencia'] . "</td>";
+                            echo "<td>" . $user_data['senha'] . "</td>";
+                            echo "<td>" . $user_data['adm'] . "</td>";
+                            echo "<td></td>";
 
-                        echo "<td>
+                            echo "<td>
                                 <a class='btn btn-sm btn-primary' href='editUser.php?id=$user_data[id]'>
                                 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
                                     <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
@@ -160,65 +115,30 @@
                                 </a>
                                 </svg>
                         </td>";
-                        echo "</tr>";
-                    }
-                ?>
-                  </tbody>
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
         </main>
 
-        <footer class="border-top text-muted bg-light">
-            <div class="container">
-                <div class="row py-3">
-                    <div class="col-12 col-md-4 text-center">
-                        &copy; 2020 - Quitanda Online Ltda ME<br>
-                        Rua Virtual Inexistente, 171, Compulândia/PC <br>
-                        CPNJ 99.999.999/0001-99
-                    </div>
-                    <div class="col-12 col-md-4 text-center">
-                        <a href="privacidade.html" class="text-decoration-none text-dark">
-                            Política de Privacidade
-                        </a><br>
-                        <a href="termos.html" class="text-decoration-none text-dark">
-                            Termos de Uso
-                        </a><br>
-                        <a href="quemsomos.html" class="text-decoration-none text-dark">
-                            Quem Somos
-                        </a><br>
-                        <a href="trocas.html" class="text-decoration-none text-dark">
-                            Trocas e Devoluções
-                        </a>
-                    </div>
-                    <div class="col-12 col-md-4 text-center">
-                        <a href="contato.html" class="text-decoration-none text-dark">
-                            Contato pelo Site
-                        </a><br>
-                        E-mail: <a href="mailto:email@dominio.com" class="text-decoration-none text-dark">
-                            email@dominio.com
-                        </a><br>
-                        Telefone: <a href="phone:28999990000" class="text-decoration-none text-dark">
-                            (19) 99999-0000
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <?php
+        require_once('../footer.php');
+        ?>
     </div>
     <script>
         var search = document.getElementById('pesquisar');
 
-    search.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") 
-        {
-            searchData();
-        }
-    });
+        search.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                searchData();
+            }
+        });
 
-    function searchData()
-    {
-        window.location = 'usuarios.php?search='+search.value;
-    }
+        function searchData() {
+            window.location = 'usuarios.php?search=' + search.value;
+        }
     </script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
