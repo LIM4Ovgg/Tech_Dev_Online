@@ -10,9 +10,11 @@ if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true))
 <html lang="pt-br">
 
 <?php
+$sistema = '';
 $title = 'Login';
 require_once('head.php');
 ?>
+</head>
 
 <body>
     <div class="d-flex flex-column wrapper">

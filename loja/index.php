@@ -198,7 +198,7 @@ require_once('head.php');
                                                     }
                                                     ?>" style="font-size: 24px; line-height: 24px;"></i>
                                     </a>
-                                    <img src="<?php echo 'assets/img/produtos/' . $fetch_stock['imagem'] ?>" class="card-img-top">
+                                    <img src="<?php echo $fetch_stock['imagem'] ?>" class="card-img-top">
                                     <div class="card-header">
                                         de <s>R$ 5.024,01</s>
                                         <h5><?php echo 'Por: R$' . number_format($fetch_stock['valor'], 2, ',', '.') ?></h5>

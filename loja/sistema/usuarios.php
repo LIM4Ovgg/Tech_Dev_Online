@@ -19,42 +19,32 @@ $result = $conexao->query($sql);
 <!doctype html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../img/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/estilos.css">
-
-    <title>Tech Dev Online :: Página Principal</title>
-    <style>
-        .box-search {
-            display: flex;
-            justify-content: center;
-            gap: .1%;
-        }
-    </style>
+<?php
+$title = 'Usuarios';
+$sistema = '../';
+require_once('../head.php');
+?>
+<style>
+    .box-search {
+        display: flex;
+        justify-content: center;
+        gap: .1%;
+    }
+</style>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
 
         <?php
-        $sistema = '../' ;
-        require_once('../header_logado.php');
+        if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+            $sistema = '../';
+            require_once('../header_logado.php');
+        } else {
+            $sistema = '../';
+            require_once('../header.php');
+        }
         ?>
-
 
         <div class="box-search">
             <input type="search" class="form-control w-25" placeholder="Pesquisar" id='pesquisar'>

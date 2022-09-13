@@ -1,60 +1,46 @@
 <?php
 
-    session_start();
+session_start();
+include_once('config.php');
+// print_r($_SESSION);
+if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+    header('Location: sistema.php');
+}
+
+
+if (isset($_POST['submit'])) {
+
     include_once('config.php');
-    // print_r($_SESSION);
-    if((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true))
-    {
-        header('Location: sistema.php');
-    }
-    
 
-    if(isset($_POST['submit']))
-    {
+    $nome = $_POST['nome'];
+    $cpf = $_POST['email'];
+    $data_nasc = $_POST['data_nasc'];
+    $email = $_POST['email'];
+    $telefone = $_POST['telefone'];
+    $cep = $_POST['cep'];
+    $numero = $_POST['numero'];
+    $complemento = $_POST['complemento'];
+    $referencia = $_POST['referencia'];
+    $senha = $_POST['senha'];
+    $confirm_senha = $_POST['confirm_senha'];
+    $adm = 'No';
 
-        include_once('config.php');
+    $result = mysqli_query($conexao, "INSERT INTO users(nome,cpf,data_nasc,email,telefone,cep,numero,complemento,referencia,senha,confirm_senha,adm) VALUES ('$nome','$cpf','$data_nasc','$email','$telefone','$cep','$numero','$complemento','$referencia','$senha','$confirm_senha','$adm')");
+    header('Location: login.php');
+}
 
-        $nome = $_POST['nome'];
-        $cpf = $_POST['email'];
-        $data_nasc = $_POST['data_nasc'];
-        $email = $_POST['email'];
-        $telefone = $_POST['telefone'];
-        $cep = $_POST['cep'];
-        $numero = $_POST['numero'];
-        $complemento = $_POST['complemento'];
-        $referencia = $_POST['referencia'];
-        $senha = $_POST['senha'];
-        $confirm_senha = $_POST['confirm_senha'];
-        $adm = 'No';
 
-        $result = mysqli_query($conexao, "INSERT INTO users(nome,cpf,data_nasc,email,telefone,cep,numero,complemento,referencia,senha,confirm_senha,adm) VALUES ('$nome','$cpf','$data_nasc','$email','$telefone','$cep','$numero','$complemento','$referencia','$senha','$confirm_senha','$adm')");
-        header('Location: login.php');
-    }
-    
+
 ?>
 <!doctype html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/icon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/icon-16x16.png">
-    <link rel="manifest" href="img/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    
-    <title>Tech Dev Online :: Cadastro</title>
-    <style>
+<?php
+$sistema = '';
+$title = 'Cadastro';
+require_once('head.php');
+?>
+<style>
     .xx {
 
         display: flex;
@@ -62,7 +48,7 @@
         gap: 5%;
 
     }
-    </style>
+</style>
 </head>
 
 <body style="min-width:372px;">
@@ -72,8 +58,7 @@
                 <a class="navbar-brand" href="index.php">
                     <strong>Tech Dev Online</strong>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target=".navbar-collapse">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse">
@@ -94,8 +79,7 @@
                                 <a href="login.php" class="nav-link text-white">Entrar</a>
                             </li>
                             <li class="nav-item">
-                                <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0"
-                                    title="5 produto(s) no carrinho"><small>5</small></span>
+                                <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0" title="5 produto(s) no carrinho"><small>5</small></span>
                                 <a href="carrinho.php" class="nav-link text-white">
                                     <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
                                 </a>
@@ -138,12 +122,12 @@
                                     <label for="txtEmail">E-mail</label>
                                 </div>
                                 <div class="xx">
-                                <div class="form-floating mb-3 col-md-6">
-                                    <input class="form-control" placeholder=" " name="telefone" type="text" id="txtTelefone" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" required />
-                                    <label for="txtTelefone">Telefone</label>
+                                    <div class="form-floating mb-3 col-md-6">
+                                        <input class="form-control" placeholder=" " name="telefone" type="text" id="txtTelefone" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" required />
+                                        <label for="txtTelefone">Telefone</label>
 
-                                </div>
-                                <h4>(xx) xxxxx-xxxx</h4>
+                                    </div>
+                                    <h4>(xx) xxxxx-xxxx</h4>
 
                                 </div>
                             </fieldset>
@@ -155,11 +139,19 @@
                                     <input class="form-control" type="text" name="cep" id="txtCEP" placeholder=" " required />
                                     <label for="txtCEP">CEP</label>
                                 </div>
-                                <div class="mb-3 col-md-6 col-lg-8 align-self-end">
-                                    <textarea class="form-control text-muted bg-light"
-                                        style="height: 58px; font-size: 14px;"
-                                        disabled>Digite o CEP para buscarmos o endereço.</textarea>
-                                </div>
+                                <?php
+                                if (isset($_POST["cep"])) {
+                                    $cepIframe = $_POST["cep"];
+                                    $cepCorrect = preg_replace("/[^0-9]/", "", $cepIframe);
+                                    $maps = 'https://www.google.com.br/maps?q=' . $cepCorrect . ',%20Brasil&output=embed';
+                                    echo  "<script>alert('foi mongoloide');</script>";
+                                    if (1 == 1) {
+                                ?>
+                                        <div class='mb-3 col-md-6 col-lg-8 align-self-end'>
+                                            <iframe id='iframeCep' src="<?= $maps ?>" width='100%' height='100%' style='border:0;' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>
+                                        </div>
+                                <?php };
+                                }; ?>
                                 <div class="clearfix"></div>
                                 <div class="form-floating mb-3 col-md-4">
                                     <input class="form-control" type="text" name="numero" id="txtNumero" placeholder=" " required />
@@ -219,16 +211,36 @@
                     </div>
                     <div class="col-12 col-md-4 text-center text-md-right">
                         <a href="contato.php" class="text-decoration-none text-dark">Contato pelo site</a><br>
-                        E-mail: <a href="mailto:email@dominio.com"
-                            class="text-decoration-none text-dark">email@dominio.com</a><br>
+                        E-mail: <a href="mailto:email@dominio.com" class="text-decoration-none text-dark">email@dominio.com</a><br>
                         Telefone: <a href="phone:28999990000" class="text-decoration-none text-dark">(28) 99999-0000</a>
                     </div>
                 </div>
             </div>
         </footer>
     </div>
+    <script>
+        document.getElementById('txtCEP').addEventListener('input', function() {
+            get_endereco(this.value);
+        });
 
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        function get_endereco(cep){
+            var url = 'cadastro.php';
+            var formData = new FormData();
+            formData.append('cep', cep)
+
+            $.ajax({
+            url: url,
+            data: formData,
+            type: 'POST',
+            success: function(response) {
+                console.log(formData)
+            }
+        });
+        }
+        
+    </script>
+    <script src="vendor/jquery/jquery.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

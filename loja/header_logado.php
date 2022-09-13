@@ -5,7 +5,7 @@
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
             <div class="container">
-                <a class="navbar-brand" href="../sistema.php"><b>Tech Dev Online</b></a>
+                <a class="navbar-brand" href="<?php echo $sistema ?>index.php"><b>Tech Dev Online</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>

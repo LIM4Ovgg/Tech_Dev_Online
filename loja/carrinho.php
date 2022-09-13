@@ -40,9 +40,11 @@ if (isset($_GET['diminuir'])) {
 <html lang="pt-br">
 
 <?php
-$title = 'Carrinho de compras';
+$title = 'Carrinho de Compras';
+$sistema = '';
 require_once('head.php');
 ?>
+</head>
 
 <body>
     <div class="d-flex flex-column wrapper">
@@ -67,7 +69,7 @@ require_once('head.php');
                                 <div class="row g-3">
                                     <div class="col-4 col-md-3 col-lg-2">
                                         <a href="#">
-                                            <img src="assets/img/produtos/<?php echo $fetch_cart['imagem'] ?>" class="img-thumbnail">
+                                            <img src="<?php echo $fetch_cart['imagem'] ?>" class="img-thumbnail">
                                         </a>
                                     </div>
                                     <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
@@ -75,8 +77,8 @@ require_once('head.php');
                                             <b><a href="#" class="text-decoration-none text-info">
                                                     <?php echo $fetch_cart['nome'] ?></a></b>
                                         </h4>
-                                        <h5>
-                                            Abacate manteiga da melhor qualidade possível e muito fresco.
+                                        <h5 class="truncar-3l">
+                                            <?= $fetch_cart['descricao'] ?>
                                         </h5>
                                     </div>
                                     <div class="col-6 offset-6 col-sm-6 offset-sm-6 col-md-4 offset-md-8 col-lg-3 offset-lg-0 col-xl-2 align-self-center mt-3">
@@ -87,7 +89,13 @@ require_once('head.php');
                                                 </a>
 
                                                 <input type="hidden" min="1" name="update_quantidade_id" value="<?php echo $fetch_cart['id'] ?>">
-                                                <input type="text" class="form-control text-center border-dark" min="1" name="update_quantidade" value="<?php echo $fetch_cart['quantidade'] ?>">
+                                                <input type="text" class="form-control text-center border-dark" min="1" name="update_quantidade" value="<?php echo $fetch_cart['quantidade'];
+                                                                                                                                                        if ($fetch_cart['quantidade'] <= 0) {
+                                                                                                                                                            $id = $fetch_cart['id'];
+                                                                                                                                                            mysqli_query($conexao, "DELETE FROM `cart` WHERE id = '$id'");
+                                                                                                                                                            header('location:carrinho.php');
+                                                                                                                                                        }
+                                                                                                                                                        ?>">
                                                 <input type="submit" name="update_update_btn" hidden />
 
                                                 <a class="btn btn-outline-dark btn-sm" href="carrinho.php?aumentar=<?php echo $fetch_cart['id'] ?>">
@@ -99,10 +107,10 @@ require_once('head.php');
                                             </div>
                                         </form>
                                         <div class="text-end mt-2">
-                                            <small class="text-secondary"><?php echo 'Valor unidade: R$' . number_format($fetch_cart['valor'] , 2, ',', '.') ?></small><br>
+                                            <small class="text-secondary"><?php echo 'Valor unidade: R$' . number_format($fetch_cart['valor'], 2, ',', '.') ?></small><br>
                                             <span class="text-dark"><?php
-                                            $sub_total = ($fetch_cart['valor'] * $fetch_cart['quantidade']);
-                                            echo 'Valor Itens: R$' . number_format($sub_total, 2 , ',' , '.') ?></span>
+                                                                    $sub_total = ($fetch_cart['valor'] * $fetch_cart['quantidade']);
+                                                                    echo 'Valor Itens: R$' . number_format($sub_total, 2, ',', '.') ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +124,7 @@ require_once('head.php');
                                 <h4 class="text-dark mb-3">
                                     <?php
                                     $valor_total += $sub_total;
-                                    echo 'Valor Total: R$ ' . number_format($valor_total, 2 , ',' , '.');
+                                    echo 'Valor Total: R$ ' . number_format($valor_total, 2, ',', '.');
                                     ?>
                                 </h4>
                                 <a href="index.php" class="btn btn-outline-success btn-lg">

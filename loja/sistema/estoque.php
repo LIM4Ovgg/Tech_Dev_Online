@@ -23,17 +23,17 @@ $result = $conexao->query($sql);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../img/favicon/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../assets/img/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../img/favicon/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="../assets/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/estilos.css">
 
@@ -44,8 +44,8 @@ $result = $conexao->query($sql);
             justify-content: center;
             gap: .1%;
         }
-        .descricao {
-            max-width: 10px;
+        .over {
+            max-width: 20px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -56,9 +56,14 @@ $result = $conexao->query($sql);
 <body>
     <div class="d-flex flex-column wrapper">
 
-        <?php
-        $sistema = '../';
-        require_once('../header_logado.php');
+    <?php
+        if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+            $sistema = '../';
+            require_once('../header_logado.php');
+        } else {
+            $sistema = '../';
+        require_once('../header.php');
+        }
         ?>
 
 
@@ -77,7 +82,7 @@ $result = $conexao->query($sql);
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Imagem</th>
+                            <th scope="col">Imagem (URL)</th>
                             <th scope="col">Descrição</th>
                             <th scope="col">Valor</th>
                             <th scope="col">Quantidade</th>
@@ -90,8 +95,8 @@ $result = $conexao->query($sql);
                             echo "<tr>";
                             echo "<td>" . $user_data['id'] . "</td>";
                             echo "<td>" . $user_data['nome'] . "</td>";
-                            echo "<td>" . $user_data['imagem'] . "</td>";
-                            echo "<td class='descricao'>" . $user_data['descricao'] . "</td>";
+                            echo "<td class='over'><a href='" . $user_data['imagem'] . "'>" . $user_data['imagem'] . "</a></td>";
+                            echo "<td class='over'>" . $user_data['descricao'] . "</td>";
                             echo "<td>" . $user_data['valor'] . "</td>";
                             echo "<td>" . $user_data['quantidade'] . "</td>";
                             echo "<td>
