@@ -139,19 +139,9 @@ require_once('head.php');
                                     <input class="form-control" type="text" name="cep" id="txtCEP" placeholder=" " required />
                                     <label for="txtCEP">CEP</label>
                                 </div>
-                                <?php
-                                if (isset($_POST["cep"])) {
-                                    $cepIframe = $_POST["cep"];
-                                    $cepCorrect = preg_replace("/[^0-9]/", "", $cepIframe);
-                                    $maps = 'https://www.google.com.br/maps?q=' . $cepCorrect . ',%20Brasil&output=embed';
-                                    echo  "<script>alert('foi mongoloide');</script>";
-                                    if (1 == 1) {
-                                ?>
-                                        <div class='mb-3 col-md-6 col-lg-8 align-self-end'>
-                                            <iframe id='iframeCep' src="<?= $maps ?>" width='100%' height='100%' style='border:0;' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>
-                                        </div>
-                                <?php };
-                                }; ?>
+                                <div class='mb-3 col-md-6 col-lg-8 align-self-end'>
+                                    <div class="result"></div>
+                                </div>
                                 <div class="clearfix"></div>
                                 <div class="form-floating mb-3 col-md-4">
                                     <input class="form-control" type="text" name="numero" id="txtNumero" placeholder=" " required />
@@ -169,11 +159,11 @@ require_once('head.php');
                             <fieldset class="row gx-3">
                                 <legend>Senha de Acesso</legend>
                                 <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" type="password" name="senha" id="txtSenha" placeholder=" " required />
+                                    <input class="form-control" type="password" name="senha" id="txtSenha" placeholder=" " autocomplete="off" required />
                                     <label for="txtSenha">Senha</label>
                                 </div>
                                 <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" name="confirm_senha" id="txtConfirmacaoSenha" placeholder=" " type="password" required />
+                                    <input class="form-control" name="confirm_senha" id="txtConfirmacaoSenha" placeholder=" " autocomplete="off" type="password" required />
                                     <label class="form-label" for="txtConfirmacaoSenha">Confirmação da Senha</label>
                                 </div>
                             </fieldset>
@@ -219,25 +209,31 @@ require_once('head.php');
         </footer>
     </div>
     <script>
-        document.getElementById('txtCEP').addEventListener('input', function() {
-            get_endereco(this.value);
-        });
+        var el = document.getElementById('txtCEP');
 
-        function get_endereco(cep){
-            var url = 'cadastro.php';
-            var formData = new FormData();
-            formData.append('cep', cep)
+        el.addEventListener("keyup", get, true);
+        
+
+        function get() {
+            get_endereco(this.value);
+        }
+
+        function get_endereco(cep) {
+            var url = 'maps.php';
+            var cepArray = {
+                "cep": cep
+            };
 
             $.ajax({
-            url: url,
-            data: formData,
-            type: 'POST',
-            success: function(response) {
-                console.log(formData)
-            }
-        });
+                type: "POST",
+                url: url,
+                data: cepArray,
+                dataType: "text",
+                success: function(result) {
+                    $(".result").html(result)
+                }
+            });
         }
-        
     </script>
     <script src="vendor/jquery/jquery.js"></script>
     <script src="vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
