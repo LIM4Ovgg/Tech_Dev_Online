@@ -51,10 +51,10 @@ if (isset($_GET['ordem'])) {
     } else if ($ordem == 3) {
         $sql = "SELECT * FROM `stock` ORDER BY CAST(valor AS DECIMAL(10,2)) DESC";
     } else {
-        $sql = "SELECT * FROM `stock` ORDER BY id ASC";
+        $sql = "SELECT * FROM `stock` ORDER BY id DESC";
     };
 } else {
-    $sql =  "SELECT * FROM `stock` ORDER BY id ASC";
+    $sql =  "SELECT * FROM `stock` ORDER BY id DESC";
 }
 
 
@@ -316,6 +316,7 @@ require_once('head.php');
                 window.location = 'index.php';
             }
         }
+        
     </script>
     <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

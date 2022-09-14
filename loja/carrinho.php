@@ -110,6 +110,7 @@ require_once('head.php');
                                             <small class="text-secondary"><?php echo 'Valor unidade: R$' . number_format($fetch_cart['valor'], 2, ',', '.') ?></small><br>
                                             <span class="text-dark"><?php
                                                                     $sub_total = ($fetch_cart['valor'] * $fetch_cart['quantidade']);
+                                                                    $valor_total += $sub_total;
                                                                     echo 'Valor Itens: R$' . number_format($sub_total, 2, ',', '.') ?></span>
                                         </div>
                                     </div>
@@ -123,7 +124,6 @@ require_once('head.php');
                             <div class="text-end">
                                 <h4 class="text-dark mb-3">
                                     <?php
-                                    $valor_total += $sub_total;
                                     echo 'Valor Total: R$ ' . number_format($valor_total, 2, ',', '.');
                                     ?>
                                 </h4>
