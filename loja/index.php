@@ -91,11 +91,14 @@ require_once('head.php');
     <div class="d-flex flex-column wrapper">
         <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
-            require_once('header_logado.php');
+            if ($adm = true) {
+                require_once('header_logado_adm.php');
+            }else{
+                require_once('header_logado.php');
+            }
         } else {
             require_once('header.php');
         }
-
         ?>
 
         <div class="container">
