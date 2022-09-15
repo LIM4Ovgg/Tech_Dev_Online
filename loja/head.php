@@ -1,3 +1,10 @@
+<?php
+if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+$logado = $_SESSION['email'];
+$mysql = mysqli_fetch_assoc(mysqli_query($conexao, "SELECT adm FROM users WHERE email LIKE '$logado'"));
+$adm = $mysql['adm'];
+}
+?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

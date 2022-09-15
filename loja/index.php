@@ -29,13 +29,14 @@ if (isset($_GET['favoritar'])) {
     $produto_valor = $fav['valor'];
     $produto_descricao = $fav['descricao'];
     $produto_imagem = $fav['imagem'];
+    $produto_quantidade = $fav['quantidade'];
     $select_fav = mysqli_query($conexao, "SELECT * FROM `favorites` WHERE nome = '$produto_nome'");
 
     if (mysqli_num_rows($select_fav) > 0) {
         mysqli_query($conexao, "DELETE FROM `favorites` WHERE nome = '$produto_nome'");
         $classe = 'bi-suit-heart';
     } else {
-        mysqli_query($conexao, "INSERT INTO `favorites`(id, nome, valor, imagem, descricao) VALUES('$produto_id','$produto_nome','$produto_valor','$produto_imagem','$produto_descricao')");
+        mysqli_query($conexao, "INSERT INTO `favorites`(id, nome, valor, imagem, descricao, quantidade) VALUES('$produto_id','$produto_nome','$produto_valor','$produto_imagem','$produto_descricao','$produto_quantidade')");
         $classe = 'bi-suit-heart-fill';
     }
 }
@@ -71,6 +72,7 @@ $select_stock = $conexao->query($sql);
 $title = 'Página Principal';
 require_once('head.php');
 ?>
+</head>
 
 <body>
     <?php
@@ -91,7 +93,7 @@ require_once('head.php');
     <div class="d-flex flex-column wrapper">
         <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
-            if ($adm = true) {
+            if ($adm == "Yes") {
                 require_once('header_logado_adm.php');
             }else{
                 require_once('header_logado.php');
