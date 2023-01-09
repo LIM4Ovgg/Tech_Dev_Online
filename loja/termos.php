@@ -1,11 +1,12 @@
 <?php
-require_once('sessionStart.php');
+session_start();
+include_once('config.php');
+$sistema = '';
 ?>
 <!doctype html>
 <html lang="pt-br">
 
 <?php
-$sistema = '';
 $title = 'Termos de Uso';
 require_once('head.php');
 ?>
@@ -56,7 +57,8 @@ require_once('head.php');
         require_once('footer.php');
         ?>
     </div>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/darkmode.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

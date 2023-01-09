@@ -1,21 +1,37 @@
 <?php
 session_start();
-include_once('config.php');
-$sistema = '';
+$sistema = '../';
+require_once('../logado.php');
+include_once('../config.php');
 
 if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
-    header('Location: login.php');
+    header('Location: ../login.php');
 }
-$logado = $_SESSION['email'];
+
+$email = $_SESSION['email'];
+
+$sqlSelect = "SELECT * FROM users WHERE email LIKE '$email'";
+
+$result = $conexao->query($sqlSelect);
+
+if ($result->num_rows > 0) {
+    while ($user_data = mysqli_fetch_assoc($result)) {
+        $id = $user_data['id'];
+        $email = $user_data['email'];
+        $telefone = $user_data['telefone'];
+    }
+} else {
+    header('Location: ../login.php');
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
 
 <?php
-$title = 'Area do Cliente';
-require_once('head.php');
+$title = 'Area do Cliente :: Contatos';
+require_once('../head.php');
 ?>
 </head>
 
@@ -23,13 +39,13 @@ require_once('head.php');
     <div class="d-flex flex-column wrapper">
         <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
-            if ($adm == true) {
-                require_once('header_logado_adm.php');
+            if ($adm = true) {
+                require_once('../header_logado_adm.php');
             } else {
-                require_once('header_logado.php');
+                require_once('../header_logado.php');
             }
         } else {
-            require_once('header.php');
+            require_once('../header.php');
         }
         ?>
 
@@ -39,16 +55,27 @@ require_once('head.php');
                 <div class="row gx-3">
                     <?php
                     $dados = '';
-                    $contatos = '';
+                    $contatos = 'bg-info text-light';
                     $endereco = '';
                     $pedidos = '';
                     $favoritos = '';
                     $alterar = '';
-                    $cliente = 'cliente/';
-                    require_once('cliente_barra.php');
+                    $cliente = '';
+                    require_once('../cliente_barra.php');
                     ?>
                     <div class="col-8">
-
+                        <form action="saveContatos.php" method="POST">
+                            <div class="form-floating mb-3 col-md-8">
+                                <input class="form-control" type="email" id="txtEmail" name="email" placeholder=" " value="<?= $email ?>" autofocus />
+                                <label for="txtEmail">E-mail</label>
+                            </div>
+                            <div class="form-floating mb-3 col-md-6">
+                                <input class="form-control" type="text" id="txtTelefone" name="telefone" minlength="14" maxlength="15" onkeyup="mascara(this)" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" placeholder=" " value="<?= $telefone ?>"/>
+                                <label for="txtTelefone">Telefone</label>
+                            </div>
+                            <input type="hidden" name="id" value="<?= $id ?>">
+                            <input class="btn btn-lg btn-info text-white" type="submit" name="update" value="Salvar dados">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -91,8 +118,9 @@ require_once('head.php');
             </div>
         </footer>
     </div>
-    <script src="assets/js/darkmode.js"></script>
-    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/telefone.js"></script>
+    <script src="../assets/js/darkmode.js"></script>
+    <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

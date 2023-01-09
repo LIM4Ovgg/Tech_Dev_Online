@@ -1,174 +1,106 @@
+<?php
+session_start();
+$sistema = '';
+include_once('config.php');
+?>
 <!doctype html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/img/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/estilos.css">
-
-    <title>Quitanda Online :: Fechamento da Compra</title>
+<?php
+$title = 'Fechamento da Compra';
+require_once('head.php');
+?>
+<style>
+    .over {
+        max-width: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-danger border-bottom shadow-sm mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="/"><b>Quitanda Online</b></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/index.html">Principal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/contato.html">Contato</a>
-                        </li>
-                    </ul>
-                    <div class="align-self-end">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="/cadastro.html" class="nav-link text-white">
-                                    Logado como <b>{{name_user}}</b>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/login.html" class="nav-link text-white">Sair</a>
-                            </li>
-                            <li class="nav-item">
-                                <span class="badge rounded-pill bg-light text-danger position-absolute ms-4 mt-0"
-                                    title="5 produto(s) no carrinho"><small>5</small></span>
-                                <a href="/carrinho.html" class="nav-link text-white">
-                                    <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <?php
+        if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+            if ($adm == "Yes") {
+                require_once('header_logado_adm.php');
+            } else {
+                require_once('header_logado.php');
+            }
+        } else {
+            require_once('header.php');
+        }
+        ?>
 
         <main class="flex-fill">
             <div class="container">
-                <h1>Confira os Itens</h1>
-                <h3>Confira os itens e clique em <b>Continuar</b> para prosseguir para a <b>seleção do endereço de entrega</b>.</h3>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item py-3">
-                        <div class="row g-3">
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="#">
-                                    <img src="/img/produtos/000008.jpg" class="img-thumbnail">
-                                </a>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
-                                <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
-                                            Abacate Manteiga</a></b>
-                                </h4>
-                                <h5>
-                                    Abacate manteiga da melhor qualidade possível e muito fresco.
-                                    <br>
-                                    <b>
-                                        4 unidade(s) <br>
-                                        R$ 15,96
-                                    </b>
-                                </h5>
-                            </div>                            
-                        </div>
-                    </li>
-                    <li class="list-group-item py-3">
-                        <div class="row g-3">
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="#">
-                                    <img src="/img/produtos/000003.jpg" class="img-thumbnail">
-                                </a>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
-                                <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
-                                            Abacate Manteiga</a></b>
-                                </h4>
-                                <h5>
-                                    Abacate manteiga da melhor qualidade possível e muito fresco. <br>
-                                    <b>
-                                        4 unidade(s) <br>
-                                        R$ 15,96
-                                    </b>
-                                </h5>
-                            </div>                            
-                        </div>
-                    </li>
-                    <li class="list-group-item py-3">
-                        <div class="row g-3">
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="#">
-                                    <img src="/img/produtos/000006.jpg" class="img-thumbnail">
-                                </a>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
-                                <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
-                                            Abacate Manteiga</a></b>
-                                </h4>
-                                <h5>
-                                    Abacate manteiga da melhor qualidade possível e muito fresco. <br>
-                                    <b>
-                                        4 unidade(s) <br>
-                                        R$ 15,96
-                                    </b>
-                                </h5>
-                            </div>                    
-                        </div>
-                    </li>
-                    <li class="list-group-item py-3">
-                        <div class="row g-3">
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="#">
-                                    <img src="/img/produtos/000012.jpg" class="img-thumbnail">
-                                </a>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
-                                <h4>
-                                    <b><a href="#" class="text-decoration-none text-danger">
-                                            Abacate Manteiga</a></b>
-                                </h4>
-                                <h5>
-                                    Abacate manteiga da melhor qualidade possível e muito fresco. <br>
-                                    <b>
-                                        4 unidade(s) <br>
-                                        R$ 15,96
-                                    </b>
-                                </h5>
-                            </div>                            
-                        </div>
-                    </li>
-                    <li class="list-group-item pt-3 pb-0">
+                <form action="fechamento_endereco.php" method="POST">
+                    <h1>Confira os Itens</h1>
+                    <h3>Confira os itens e clique em <b>Continuar</b> para prosseguir para a <b>seleção do endereço de entrega</b>.</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Imagem</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Quantidade</th>
+                            </tr>
+                        </thead>
+                        <?php
+                        $select_cart = mysqli_query($conexao, "SELECT * FROM `cart`");
+                        $valor_total = 0;
+                        if (mysqli_num_rows($select_cart) > 0) {
+                            while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
+                        ?>
+
+                                <tbody>
+                                    <?php
+                                    $sub_total = ($fetch_cart['valor'] * $fetch_cart['quantidade']);
+                                    $valor_total += $sub_total;
+                                    echo "<tr>";
+                                    echo "<td>" . $fetch_cart['id'] . "</td>";
+                                    echo "<td>" . $fetch_cart['nome'] . "</td>";
+                                    echo "<td>
+                                    <div style='height: 100px; width: 100px;'>
+                                        <a href='#'>
+                                            <img src=" . $fetch_cart['imagem'] . " class='img-thumbnail'>
+                                        </a>
+                                    </div>
+                                </td>";
+                                    echo "<td class='over'>" . $fetch_cart['descricao'] . "</td>";
+                                    echo "<td>R$ " . number_format($sub_total, 2, ',', '.') . "</td>";
+                                    echo "<td>" . $fetch_cart['quantidade'] . "</td>";
+                                    ?>
+                                    <input type="hidden" name="id" value="<?= $fetch_cart['id'] ?>">
+                                    <input type="hidden" name="nome" value="<?= $fetch_cart['nome'] ?>">
+                                    <input type="hidden" name="imagem" value="<?= $fetch_cart['imagem'] ?>">
+                                    <input type="hidden" name="descricao" value="<?= $fetch_cart['descricao'] ?>">
+                                    <input type="hidden" name="quantidade" value="<?= $fetch_cart['quantidade'] ?>">
+                                </tbody>
+                            <?php
+                            };
+                            ?>
+                    </table>
+                    <li class="list-group-item pt-3 pb-0 mb-3 dark">
                         <div class="text-end">
                             <h4 class="text-dark mb-3">
-                                Valor Total: R$ 63,84
+                                <?= "Valor Total: R$ " . number_format($valor_total, 2, ',', '.'); ?>
                             </h4>
-                            <a href="/carrinho.html" class="btn btn-outline-success btn-lg mb-3">
+                            <a href="carrinho.php" class="btn btn-outline-info btn-lg mb-3">
                                 Voltar ao Carrinho
                             </a>
-                            <a href="/fechamento_endereco.html" class="btn btn-danger btn-lg ms-2 mb-3">Continuar</a>
+                            <input type="hidden" name="total" value="<?= $valor_total ?>">
+                            <input type="submit" class="btn btn-success btn-lg ms-2 mb-3" value="Continuar">
                         </div>
                     </li>
-                </ul>
+                </form>
+            <?php
+                        };
+            ?>
             </div>
         </main>
 
@@ -209,7 +141,8 @@
             </div>
         </footer>
     </div>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/darkmode.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

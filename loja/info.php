@@ -16,7 +16,7 @@
         //print_r('<br>');
         //print_r('Endereço: ' . $_POST['endereco']);
 
-        include_once('assets/php/config.php');
+        include_once('config.php');
 
         $nome = $_POST['nome'];
         $email = $_POST['email'];

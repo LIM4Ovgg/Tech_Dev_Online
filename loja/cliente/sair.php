@@ -1,58 +1,58 @@
 <?php
 session_start();
-include_once('config.php');
-$sistema = '';
+$sistema = '../';
+require_once('../logado.php');
+include_once('../config.php');
 
 if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
-    header('Location: login.php');
+    header('Location: ../login.php');
 }
-$logado = $_SESSION['email'];
+
 ?>
 <!doctype html>
 <html lang="pt-br">
 
 <?php
-$title = 'Area do Cliente :: Nova Senha Cadastrada';
-require_once('head.php');
+$title = 'Area do Cliente';
+require_once('../head.php');
 ?>
 </head>
 
-<body>
+<body onload="alerta()">
     <div class="d-flex flex-column wrapper">
         <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
             if ($adm == true) {
-                require_once('header_logado_adm.php');
+                require_once('../header_logado_adm.php');
             } else {
-                require_once('header_logado.php');
+                require_once('../header_logado.php');
             }
         } else {
-            require_once('header.php');
+            require_once('../header.php');
         }
         ?>
 
         <main class="flex-fill">
             <div class="container">
-                <h1>Nova Senha Cadastrada!</h1>
-                <hr>
-                <p>
-                    Caro cliente,
-                </p>
-                <p>
-                    Sua nova senha foi cadastrada com sucesso. Para entrar em sua área restrita agora mesmo, <a href="/login.html">clique aqui</a>.
-                </p>
-                <p>
-                    Agradecemos pela confiança em nossos serviços.
-                </p>
-                <p>
-                    Cordialmente,<br>
-                    Central de Relacionamento Tech Dev Online
-                </p>
-                <p>
-                    <a href="index.php" class="btn btn-lg btn-info text-white">Voltar à Página Principal</a>
-                </p>
+                <h1>Minha Conta</h1>
+                <div class="row gx-3">
+                    <?php
+                    $dados = '';
+                    $contatos = '';
+                    $endereco = '';
+                    $pedidos = '';
+                    $favoritos = '';
+                    $alterar = '';
+                    $cliente = '';
+                    $sair = 'bg-danger text-light';
+                    require_once('../cliente_barra.php');
+                    ?>
+                    <div class="col-8">
+
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -60,26 +60,26 @@ require_once('head.php');
             <div class="container">
                 <div class="row py-3">
                     <div class="col-12 col-md-4 text-center">
-                        &copy; 2020 - Tech Dev Online Ltda ME<br>
+                        &copy; 2020 - Quitanda Online Ltda ME<br>
                         Rua Virtual Inexistente, 171, Compulândia/PC <br>
                         CPNJ 99.999.999/0001-99
                     </div>
                     <div class="col-12 col-md-4 text-center">
-                        <a href="/privacidade.html" class="text-decoration-none text-dark">
+                        <a href="/privacidade.php" class="text-decoration-none text-dark">
                             Política de Privacidade
                         </a><br>
-                        <a href="/termos.html" class="text-decoration-none text-dark">
+                        <a href="/termos.php" class="text-decoration-none text-dark">
                             Termos de Uso
                         </a><br>
-                        <a href="/quemsomos.html" class="text-decoration-none text-dark">
+                        <a href="/quemsomos.php" class="text-decoration-none text-dark">
                             Quem Somos
                         </a><br>
-                        <a href="/trocas.html" class="text-decoration-none text-dark">
+                        <a href="/trocas.php" class="text-decoration-none text-dark">
                             Trocas e Devoluções
                         </a>
                     </div>
                     <div class="col-12 col-md-4 text-center">
-                        <a href="/contato.html" class="text-decoration-none text-dark">
+                        <a href="/contato.php" class="text-decoration-none text-dark">
                             Contato pelo Site
                         </a><br>
                         E-mail: <a href="mailto:email@dominio.com" class="text-decoration-none text-dark">
@@ -93,8 +93,18 @@ require_once('head.php');
             </div>
         </footer>
     </div>
-    <script src="assets/js/darkmode.js"></script>
-    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function alerta() {
+            var confirma = confirm("Tem certeza de que quer sair?");
+            if (confirma == true) {
+                window.location.href = "../sair.php";
+            } else {
+                window.history.back();
+            }
+        }
+    </script>
+    <script src="../assets/js/darkmode.js"></script>
+    <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

@@ -4,10 +4,10 @@ $sistema = '../';
 require_once('../logado.php');
 require_once('../adm.php');
 
-if (isset($_POST['update']) && !empty($_POST['logado']) && !empty($_POST['senha'])) {
+if (isset($_POST['add']) && !empty($_POST['senha'])) {
     // Acessa
     include_once('../config.php');
-    $email = $_POST['logado'];
+    $email = $_POST['email'];
     $senha = $_POST['senha'];
 
     $sql = "SELECT * FROM users WHERE email = '$email' and senha = '$senha'";
@@ -21,15 +21,13 @@ if (isset($_POST['update']) && !empty($_POST['logado']) && !empty($_POST['senha'
 
         header(sprintf('location: %s', $_SERVER['HTTP_REFERER']));
     } else {
-        $id = $_POST['id'];
         $imagem = $_POST['imagem'];
         $nome = $_POST['nome'];
         $valor = $_POST['valor'];
         $quantidade = $_POST['quantidade'];
         $descricao = $_POST['descricao'];
 
-
-        $sqlUpdate = "UPDATE stock SET imagem='$imagem',nome='$nome',valor='$valor',quantidade='$quantidade',descricao='$descricao' WHERE id=$id";
+        $sqlUpdate = "INSERT iNTO stock (nome, valor, imagem, descricao, quantidade) VALUES('$nome','$valor','$imagem','$descricao','$quantidade')";
 
         $result = $conexao->query($sqlUpdate);
 

@@ -1,81 +1,58 @@
+<?php
+session_start();
+include_once('config.php');
+$sistema = '';
+?>
 <!doctype html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/img/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/estilos.css">
-
-    <title>Tech Dev Online :: Recuperação de Senha</title>
+<?php
+$title = 'Recuperação de Senha';
+require_once('head.php');
+?>
+<style>
+    .erro:focus{
+        border-color:red;
+        outline:0;
+        box-shadow:0 0 0 .25rem rgba(200,13,13,0.30);
+        }
+</style>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="index.php"><b>Tech Dev Online</b></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php">Principal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="contato.php">Contato</a>
-                        </li>
-                    </ul>
-                    <div class="align-self-end">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="cadastro.php" class="nav-link text-white">Quero Me Cadastrar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="login.php" class="nav-link text-white">Entrar</a>
-                            </li>
-                            <li class="nav-item">
-                                <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0"
-                                    title="5 produto(s) no carrinho"><small>5</small></span>
-                                <a href="/carrinho.html" class="nav-link text-white">
-                                    <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <?php
+        require_once('header.php');
+        ?>
 
         <main class="flex-fill">
             <div class="container">
                 <div class="row justify-content-center">
-                    <form class="col-sm-10 col-md-8 col-lg-6" action="confirmrecupsenha.php" method="POST">
+                    <form class="col-sm-10 col-md-8 col-lg-6" action="confirmemail.php" method="POST">
                         <h1>Recuperação de Senha</h1>
+                        
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 513) { ?>
 
-                        <div class="form-floating mb-3">
-                            <input type="email" name="email" id="txtEmail" class="form-control" placeholder=" " autofocus required>
-                            <label for="txtEmail">E-mail</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" name="email" id="txtEmail" class="form-control erro" placeholder=" " autofocus required>
+                                <label for="txtEmail">E-mail</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <p><i class="bi bi-exclamation-circle-fill" style="color:red"></i> E-mail não cadastrado</p>
+                            </div>
 
+                            <?php }else{ ?>
+
+                            <div class="form-floating mb-3">
+                                <input type="email" name="email" id="txtEmail" class="form-control" placeholder=" " autofocus required>
+                                <label for="txtEmail">E-mail</label>
+                            </div>
+
+                        <?php } ?>
                         <button type="submit" class="btn btn-lg btn-info text-white">Recuperar Senha</button>
 
                         <p class="mt-3">
-                            Ainda não é cadastrado? <a href="/cadastro.html">Clique aqui</a> para se cadastrar.
+                            Ainda não é cadastrado? <a href="cadastro.php">Clique aqui</a> para se cadastrar.
                         </p>
                     </form>
                 </div>
@@ -119,7 +96,8 @@
             </div>
         </footer>
     </div>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/darkmode.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

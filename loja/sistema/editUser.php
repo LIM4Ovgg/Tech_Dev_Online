@@ -1,7 +1,10 @@
 <?php
 session_start();
+$sistema = '../';
+require_once('../logado.php');
+require_once('../adm.php');
 include_once('../config.php');
-// print_r($_SESSION);
+
 if (!empty($_GET['id'])) {
     include_once('../config.php');
 
@@ -22,8 +25,6 @@ if (!empty($_GET['id'])) {
             $numero = $user_data['numero'];
             $complemento = $user_data['complemento'];
             $referencia = $user_data['referencia'];
-            $senha = $user_data['senha'];
-            $confirm_senha = $user_data['confirm_senha'];
             $adm = $user_data['adm'];
         }
     } else {
@@ -36,7 +37,6 @@ if (!empty($_GET['id'])) {
 
 <?php
 $title = 'Editar Usuário';
-$sistema = '../';
 require_once('../head.php');
 ?>
 </head>
@@ -45,10 +45,12 @@ require_once('../head.php');
     <div class="d-flex flex-column wrapper">
         <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
-            $sistema = '../';
-            require_once('../header_logado.php');
+            if ($adm == "Yes") {
+                require_once('../header_logado_adm.php');
+            } else {
+                require_once('../header_logado.php');
+            }
         } else {
-            $sistema = '../';
             require_once('../header.php');
         }
         ?>
@@ -63,7 +65,7 @@ require_once('../head.php');
                             <fieldset class="row gx-3">
                                 <legend>Dados Pessoais</legend>
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" type="text" name="nome" id="nome" placeholder=" " value="<?php echo $nome ?>" autofocus required />
+                                    <input class="form-control" type="text" name="nome" id="nome" placeholder=" " value="<?php echo $nome ?>" required />
                                     <label for="nome">Nome</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-xl-4">
@@ -98,7 +100,9 @@ require_once('../head.php');
                                     <label for="txtCEP">CEP</label>
                                 </div>
                                 <div class="mb-3 col-md-6 col-lg-8 align-self-end">
-                                    <textarea class="form-control text-muted bg-light" style="height: 58px; font-size: 14px;" disabled>Digite o CEP para buscarmos o endereço.</textarea>
+                                    <div id="result" class="result">
+                                        <textarea class="form-control text-muted bg-light" style="height: 58px; font-size: 14px;" disabled>Digite o CEP para buscarmos o endereço.</textarea>
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-floating mb-3 col-md-4">
@@ -116,28 +120,47 @@ require_once('../head.php');
                             </fieldset>
                             <fieldset class="row gx-3">
                                 <legend>Senha de Acesso</legend>
-                                <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" type="text" name="senha" id="txtSenha" placeholder=" " value="<?php echo $senha ?>" required />
-                                    <label for="txtSenha">Senha</label>
-                                </div>
-                                <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" name="confirm_senha" id="txtConfirmacaoSenha" placeholder=" " type="text" value="<?php echo $confirm_senha ?>" required />
-                                    <label class="form-label" for="txtConfirmacaoSenha">Confirmação da Senha</label>
-                                </div>
+                                <?php if (isset($_GET['erro']) && $_GET['erro'] == 530) { ?>
+                                    <div class="row gx-3">
+                                        <div class="form-floating mb-3 col-lg-6">
+                                            <input class="form-control erro" type="password" name="senha" id="txtSenha" placeholder=" " autocomplete="off" autofocus required />
+                                            <label for="txtSenha">Senha</label>
+                                        </div>
+                                        <div class="form-floating mb-3 col-lg-6">
+                                            <input class="form-control" name="confirm_senha" id="txtConfirmacaoSenha" placeholder=" " type="password" autocomplete="off" required />
+                                            <label class="form-label" for="txtConfirmacaoSenha">Confirmação da Senha</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <p><i class="bi bi-exclamation-circle-fill" style="color:red"></i> Senha Incorreta</p>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="row gx-3">
+                                        <div class="form-floating mb-3 col-lg-6">
+                                            <input class="form-control" type="password" name="senha" id="txtSenha" placeholder=" " autocomplete="off" autofocus required />
+                                            <label for="txtSenha">Senha</label>
+                                        </div>
+                                        <div class="form-floating mb-3 col-lg-6">
+                                            <input class="form-control" name="confirm_senha" id="txtConfirmacaoSenha" placeholder=" " type="password" autocomplete="off" required />
+                                            <label class="form-label" for="txtConfirmacaoSenha">Confirmação da Senha</label>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </fieldset>
                         </div>
                     </div>
                     <hr />
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="adm" value="Yes" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" name="adm" value="<?= $adm ?>" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Este usuário tem permissão de <strong>Administrador</strong>.
                         </label>
                     </div>
                     <div class="mb-3 text-left">
-                        <a class="btn btn-lg btn-light btn-outline-info" href="../sistema.php">Cancelar</a>
+                        <a class="btn btn-lg btn-light btn-outline-danger" href="../sistema.php">Cancelar</a>
+                        <input type="hidden" name="logado" id="txtLogado" value="<?= $logado ?>" />
                         <input type="hidden" name="id" value="<?php echo $id ?>">
-                        <input type="submit" name="update" id="update" value="Salvar Alterações" class="btn btn-lg btn-info text-white" />
+                        <input type="submit" name="update" id="update" value="Salvar Alterações" class="btn btn-lg btn-success text-white" />
                     </div>
                 </form>
             </div>
@@ -167,8 +190,42 @@ require_once('../head.php');
             </div>
         </footer>
     </div>
+    <script>
+        var el = document.getElementById('txtCEP');
+        var divResult = document.getElementById('result')
 
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        el.addEventListener("keyup", get, true);
+
+
+        function get() {
+            get_endereco(this.value);
+        }
+
+        function get_endereco(cep) {
+            if (cep.length == 0) {
+                divResult.innerHTML = '<textarea class="form-control text-muted bg-light" style="height: 58px; font-size: 14px;" disabled>Digite o CEP para buscarmos o endereço.</textarea>';
+            } else {
+                var url = '../maps.php';
+                var cepArray = {
+                    "cep": cep
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: cepArray,
+                    dataType: "text",
+                    success: function(result) {
+                        $(".result").html(result)
+                    }
+                });
+            }
+
+        }
+    </script>
+    <script src="../assets/js/darkmode.js"></script>
+    <script src="../vendor/jquery/jquery.js"></script>
+    <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

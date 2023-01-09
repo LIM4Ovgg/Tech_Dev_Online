@@ -1,7 +1,6 @@
 <?php
 $select_rows = mysqli_query($conexao, "SELECT * FROM `cart`");
 $row_count = mysqli_num_rows($select_rows);
-$logado = $_SESSION['email'];
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
     <div class="container">
@@ -37,6 +36,12 @@ $logado = $_SESSION['email'];
                         </a>
                     </li>
                 </ul>
+            </div>
+            <div class="darkBtn nav-item">
+                <input name="theme" type="checkbox" class="checkbox toggle-dark-mode" id="chk" />
+                <label class="label" for="chk">
+                    <div class="ball"></div>
+                </label>
             </div>
         </div>
     </div>

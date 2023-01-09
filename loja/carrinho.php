@@ -1,6 +1,7 @@
 <?php
-
-require_once('sessionStart.php');
+session_start();
+$sistema = '';
+include_once('config.php');
 
 if (isset($_POST['update_update_btn'])) {
     $update_valor = $_POST['update_quantidade'];
@@ -41,15 +42,22 @@ if (isset($_GET['diminuir'])) {
 
 <?php
 $title = 'Carrinho de Compras';
-$sistema = '';
 require_once('head.php');
 ?>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
-        <?php
-        require_once('header.php');
+    <?php
+        if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+            if ($adm == "Yes") {
+                require_once('header_logado_adm.php');
+            }else{
+                require_once('header_logado.php');
+            }
+        } else {
+            require_once('header.php');
+        }
         ?>
 
         <main class="flex-fill">
@@ -127,10 +135,10 @@ require_once('head.php');
                                     echo 'Valor Total: R$ ' . number_format($valor_total, 2, ',', '.');
                                     ?>
                                 </h4>
-                                <a href="index.php" class="btn btn-outline-success btn-lg">
+                                <a href="index.php" class="btn btn-outline-info btn-lg">
                                     Continuar Comprando
                                 </a>
-                                <a href="fechamento_itens.html" class="btn btn-info btn-lg ms-2 mt-xs-3 text-white">Fechar Compra</a>
+                                <a href="fechamento_itens.php" class="btn btn-success btn-lg ms-2 mt-xs-3 text-white">Fechar Compra</a>
                             </div>
                         </li>
                     <?php
@@ -177,6 +185,7 @@ require_once('head.php');
             });
         });
     </script>
+    <script src="assets/js/darkmode.js"></script>
     <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

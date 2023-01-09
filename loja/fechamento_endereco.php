@@ -1,125 +1,93 @@
+<?php
+session_start();
+include_once('config.php');
+$sistema = '';
+?>
 <!doctype html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/img/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/estilos.css">
-
-    <title>Quitanda Online :: Fechamento da Compra</title>
+<?php
+$title = 'Fechamento da Compra';
+require_once('head.php');
+?>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-danger border-bottom shadow-sm mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="/"><b>Quitanda Online</b></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/index.html">Principal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/contato.html">Contato</a>
-                        </li>
-                    </ul>
-                    <div class="align-self-end">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="/cadastro.html" class="nav-link text-white">
-                                    Logado como <b>Ricardo Maroquio</b>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/login.html" class="nav-link text-white">Sair</a>
-                            </li>
-                            <li class="nav-item">
-                                <span class="badge rounded-pill bg-light text-danger position-absolute ms-4 mt-0"
-                                    title="5 produto(s) no carrinho"><small>5</small></span>
-                                <a href="/carrinho.html" class="nav-link text-white">
-                                    <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <?php
+        if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+            if ($adm == "Yes") {
+                require_once('header_logado_adm.php');
+            } else {
+                require_once('header_logado.php');
+            }
+        } else {
+            require_once('header.php');
+        }
+        ?>
 
         <main class="flex-fill">
             <div class="container">
-                <h1>Selecione o Endereço de Entrega</h1>
-                <h3 class="mb-4">
-                    Selecione o endereço de entrega e clique em <b>Continuar</b> para prosseguir para a <b>seleção da
-                        forma de pagamento</b>.
-                </h3>
-                <div class="d-flex justify-content-around flex-wrap border rounded-top pt-4 px-3">
-                    <div class="mb-4 mx-2 flex-even">
-                        <input type="radio" class="btn-check" name="endereco" 
-                            autocomplete="off" id="end1">
-                        <label class="btn btn-outline-danger p-4 h-100 w-100" for="end1">
-                            <h3>
-                                <b class="text-dark">Minha Casa</b><br>
-                                <hr>
-                                <b>Ricardo Maroquio</b><br>
-                                Rua Caminho Virtual, 101<br>
-                                Compulândia/PC<br>
-                                CEP 01.010-101
-                            </h3>
-                        </label>
+                <form action="fechamento_pagamento.php" method="POST">
+                    <h1>Selecione o Endereço de Entrega</h1>
+                    <h3 class="mb-4">
+                        Selecione o endereço de entrega e clique em <b>Continuar</b> para prosseguir para a <b>seleção da
+                            forma de pagamento</b>.
+                    </h3>
+                    <div class="d-flex justify-content-around flex-wrap border rounded-top pt-4 px-3">
+                        <div class="mb-4 mx-2 flex-even">
+                            <input type="radio" class="btn-check" name="endereco" autocomplete="off" id="end1" value="end1">
+                            <label class="btn btn-outline-info p-4 h-100 w-100" for="end1">
+                                <h3>
+                                    <b class="text-dark">Minha Casa</b><br>
+                                    <hr>
+                                    <b>Ricardo Maroquio</b><br>
+                                    Rua Caminho Virtual, 101<br>
+                                    Compulândia/PC<br>
+                                    CEP 01.010-101
+                                </h3>
+                            </label>
+                        </div>
+                        <div class="mb-4 mx-2 flex-even">
+                            <input type="radio" class="btn-check" name="endereco" autocomplete="off" id="end2" value="end2">
+                            <label class="btn btn-outline-info p-4 h-100 w-100" for="end2">
+                                <h3>
+                                    <b class="text-dark">Meu Trabalho</b><br>
+                                    <hr>
+                                    <b>Ricardo Maroquio</b><br>
+                                    Rua Caminho Virtual, 101<br>
+                                    Compulândia/PC<br>
+                                    CEP 01.010-101
+                                </h3>
+                            </label>
+                        </div>
+                        <div class="mb-4 mx-2 flex-even">
+                            <input type="radio" class="btn-check" name="endereco" autocomplete="off" id="end3" value="end3">
+                            <label class="btn btn-outline-info p-4 h-100 w-100" for="end3">
+                                <h3>
+                                    <b class="text-dark">Casa de Praia</b><br>
+                                    <hr>
+                                    <b>Ricardo Maroquio</b><br>
+                                    Rua Caminho Virtual, 101<br>
+                                    Compulândia/PC<br>
+                                    CEP 01.010-101
+                                </h3>
+                            </label>
+                        </div>
                     </div>
-                    <div class="mb-4 mx-2 flex-even">
-                        <input type="radio" class="btn-check" name="endereco" 
-                            autocomplete="off" id="end2">
-                        <label class="btn btn-outline-danger p-4 h-100 w-100" for="end2">
-                            <h3>
-                                <b class="text-dark">Meu Trabalho</b><br>
-                                <hr>
-                                <b>Ricardo Maroquio</b><br>
-                                Rua Caminho Virtual, 101<br>
-                                Compulândia/PC<br>
-                                CEP 01.010-101
-                            </h3>
-                        </label>
+                    <div class="text-end border border-top-0 rounded-bottom p-4 pb-0">
+                        <a href="fechamento_itens.php" class="btn btn-outline-info btn-lg mb-4">
+                            Voltar aos Itens
+                        </a>
+                        <input type="hidden" name="id" value="<?= $_POST['id'] ?>">
+                        <input type="hidden" name="nome" value="<?= $_POST['nome'] ?>">
+                        <input type="hidden" name="imagem" value="<?= $_POST['imagem'] ?>">
+                        <input type="hidden" name="descricao" value="<?= $_POST['descricao'] ?>">
+                        <input type="hidden" name="quantidade" value="<?= $_POST['quantidade'] ?>">
+                        <input type="hidden" name="total" value="<?= $_POST['total'] ?>">
+                        <input type="submit" class="btn btn-success btn-lg ms-2 mb-4" value="continuar">
                     </div>
-                    <div class="mb-4 mx-2 flex-even">
-                        <input type="radio" class="btn-check" name="endereco" 
-                            autocomplete="off" id="end3">
-                        <label class="btn btn-outline-danger p-4 h-100 w-100" for="end3">
-                            <h3>
-                                <b class="text-dark">Casa de Praia</b><br>
-                                <hr>
-                                <b>Ricardo Maroquio</b><br>
-                                Rua Caminho Virtual, 101<br>
-                                Compulândia/PC<br>
-                                CEP 01.010-101
-                            </h3>
-                        </label>
-                    </div>
-                </div>
-                <div class="text-end border border-top-0 rounded-bottom p-4 pb-0">                    
-                    <a href="/fechamento_itens.html" class="btn btn-outline-success btn-lg mb-4">
-                        Voltar aos Itens
-                    </a>
-                    <a href="/fechamento_pagamento.html" class="btn btn-danger btn-lg ms-2 mb-4">Continuar</a>
-                </div>
+                </form>
             </div>
         </main>
 
@@ -160,7 +128,8 @@
             </div>
         </footer>
     </div>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/darkmode.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

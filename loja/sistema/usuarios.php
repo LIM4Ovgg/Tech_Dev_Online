@@ -1,13 +1,10 @@
 <?php
 session_start();
+$sistema = '../';
+require_once('../logado.php');
+require_once('../adm.php');
 include_once('../config.php');
-// print_r($_SESSION);
-if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
-    unset($_SESSION['email']);
-    unset($_SESSION['senha']);
-    header('Location: ../login.php');
-}
-$logado = $_SESSION['email'];
+
 if (!empty($_GET['search'])) {
     $data = $_GET['search'];
     $sql = "SELECT * FROM users WHERE id LIKE '%$data%' or nome LIKE '%$data%' or email LIKE '%$data%' ORDER BY id DESC";
@@ -38,10 +35,12 @@ require_once('../head.php');
 
         <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
-            $sistema = '../';
-            require_once('../header_logado.php');
+            if ($adm == "Yes") {
+                require_once('../header_logado_adm.php');
+            } else {
+                require_once('../header_logado.php');
+            }
         } else {
-            $sistema = '../';
             require_once('../header.php');
         }
         ?>
@@ -49,9 +48,10 @@ require_once('../head.php');
         <div class="box-search">
             <input type="search" class="form-control w-25" placeholder="Pesquisar" id='pesquisar'>
             <span class="visually-hidden">pesquisar</span>
-            <button onclick="searchData()" class="btn btn-info" style="color: white;">
+            <button onclick="searchData()" class="btn btn-danger" style="color: white;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
             </button>
         </div>
         <main class="flex-fill">
@@ -94,15 +94,15 @@ require_once('../head.php');
                             echo "<td></td>";
                             echo "<td>
                                 <a class='btn btn-sm btn-primary' href='editUser.php?id=$user_data[id]'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
-                                    <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
+                                        <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
+                                    </svg>
                                 </a>
                                 <a class='btn btn-sm btn-danger' href='deleteUser.php?id=$user_data[id]' onclick='return confirm(`Deletar usuário?`)'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
                                         <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
                                     </svg>
-                                </a>
-                                </svg>
+                                </a>        
                         </td>";
                             echo "</tr>";
                         }
@@ -129,7 +129,8 @@ require_once('../head.php');
             window.location = 'usuarios.php?search=' + search.value;
         }
     </script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/darkmode.js"></script>
+    <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

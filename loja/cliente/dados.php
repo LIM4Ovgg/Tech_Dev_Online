@@ -1,91 +1,79 @@
 <?php
-    require_once('sessionStart.php');
-    $sistema = '';
+session_start();
+$sistema = '../';
+require_once('../logado.php');
+include_once('../config.php');
 
-    if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true))
-    {
-        unset($_SESSION['email']);
-        unset($_SESSION['senha']);
-        header('Location: login.php');
+$email = $_SESSION['email'];
+
+$sqlSelect = "SELECT * FROM users WHERE email LIKE '$email'";
+
+$result = $conexao->query($sqlSelect);
+
+if ($result->num_rows > 0) {
+    while ($user_data = mysqli_fetch_assoc($result)) {
+        $id = $user_data['id'];
+        $nome = $user_data['nome'];
+        $cpf = $user_data['cpf'];
+        $data_nasc = $user_data['data_nasc'];
     }
-    $logado = $_SESSION['email'];
-    if(!empty($_GET['search']))
-    {
-        $data = $_GET['search'];
-        $sql = "SELECT * FROM users WHERE id LIKE '%$data%' or nome LIKE '%$data%' or email LIKE '%$data%' ORDER BY id DESC";
-    }
-    else
-    {
-        $sql = "SELECT * FROM users ORDER BY id DESC";
-    }
-    $result = $conexao->query($sql);
+} else {
+    header('Location: ../login.php');
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
 
 <?php
 $title = 'Area do Cliente :: Dados Pessoais';
-require_once('head.php');
+require_once('../head.php');
 ?>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
-    <?php
+        <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
             if ($adm == true) {
-                require_once('header_logado_adm.php');
-            }else{
-                require_once('header_logado.php');
+                require_once('../header_logado_adm.php');
+            } else {
+                require_once('../header_logado.php');
             }
         } else {
-            require_once('header.php');
+            require_once('../header.php');
         }
         ?>
- 
+
         <main class="flex-fill">
             <div class="container">
                 <h1>Minha Conta</h1>
                 <div class="row gx-3">
-                    <div class="col-4">
-                        <div class="list-group">
-                            <a href="cliente_dados.php" class="list-group-item list-group-item-action bg-info text-light">
-                                <i class="bi-person fs-6"></i> Dados Pessoais
-                            </a>
-                            <a href="cliente_contatos.php" class="list-group-item list-group-item-action">
-                                <i class="bi-mailbox fs-6"></i> Contatos
-                            </a>
-                            <a href="cliente_endereco.php" class="list-group-item list-group-item-action">
-                                <i class="bi-house-door fs-6"></i> Endereço
-                            </a>
-                            <a href="cliente_pedidos.php" class="list-group-item list-group-item-action">
-                                <i class="bi-truck fs-6"></i> Pedidos
-                            </a>
-                            <a href="cliente_favoritos.php" class="list-group-item list-group-item-action">
-                                <i class="bi-heart fs-6"></i> Favoritos
-                            </a>
-                            <a href="cliente_senha.php" class="list-group-item list-group-item-action">
-                                <i class="bi-lock fs-6"></i> Alterar Senha
-                            </a>
-                            <a href="sistema/sair.php" class="list-group-item list-group-item-action">
-                                <i class="bi-door-open fs-6"></i> Sair
-                            </a>
-                        </div>
-                    </div>
+                    <?php
+                    $dados = 'bg-info text-light';
+                    $contatos = '';
+                    $endereco = '';
+                    $pedidos = '';
+                    $favoritos = '';
+                    $alterar = '';
+                    $cliente = '';
+                    require_once('../cliente_barra.php');
+                    ?>
                     <div class="col-8">
-                        <form action="">
+                        <form action="saveDados.php" method="POST">
                             <div class="form-floating mb-3">
-                                <input class="form-control" type="text" id="txtNome" placeholder=" " autofocus />
+                                <input class="form-control" type="text" name="nome" id="txtNome" placeholder=" " value="<?= $nome ?>" autofocus required/>
                                 <label for="txtNome">Nome</label>
                             </div>
                             <div class="form-floating mb-3 col-md-6 col-xl-4">
-                                <input class="form-control" type="text" id="txtCPF" placeholder=" " />
+                                <input class="form-control" type="text" name="cpf" id="txtCPF" placeholder=" " value="<?= $cpf ?>" required/>
                                 <label for="txtCPF">CPF</label>
                             </div>
                             <div class="form-floating mb-3 col-md-6 col-xl-4">
-                                <input class="form-control" type="date" id="txtDataNascimento" placeholder=" " />
+                                <input class="form-control" type="date" name="data_nasc" id="txtDataNascimento" placeholder=" " value="<?= $data_nasc ?>" required/>
                                 <label for="txtDataNascimento">Data de Nascimento</label>
                             </div>
+                            <input type="hidden" name="id" value="<?= $id ?>">
+                            <input class="btn btn-lg btn-info text-white" type="submit" name="update" value="Salvar dados">
                         </form>
                     </div>
                 </div>
@@ -129,7 +117,8 @@ require_once('head.php');
             </div>
         </footer>
     </div>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/darkmode.js"></script>
+    <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

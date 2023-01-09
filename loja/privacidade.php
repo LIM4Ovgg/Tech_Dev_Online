@@ -1,3 +1,8 @@
+<?php
+session_start();
+include_once('config.php');
+$sistema = '';
+?>
 <!doctype html>
 <html lang="pt-br">
 
@@ -146,7 +151,8 @@ require_once('head.php');
             </div>
         </footer>
     </div>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/darkmode.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

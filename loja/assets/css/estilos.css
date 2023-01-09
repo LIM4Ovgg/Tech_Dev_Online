@@ -23,7 +23,7 @@ p.truncar-3l {
 
 label:hover .text-dark {
     transition: color 0.2s ease;
-    color: white !important;
+    color: white;
 }
 
 label .text-dark {
@@ -34,7 +34,7 @@ label .text-dark {
 .btn-check:active+.btn-outline-danger .text-dark,
 .btn-check:hover+.btn-outline-danger .text-dark {
     transition: color 0.2s ease;
-    color: white !important;
+    color: white;
 }
 
 .flex-even {
@@ -44,7 +44,7 @@ label .text-dark {
 
 .accordion-button:not(.collapsed) {
     color: white;
-    background-color: #dc3545;
+    background-color: #0dcaf0;
 }
 
 .accordion-button:not(.collapsed)::after {
@@ -55,3 +55,12 @@ fieldset.row .form-floating>label {
     margin-left: calc(var(--bs-gutter-x) * 0.5);
 }
 
+.table {
+    margin-top: 1rem;
+}
+
+.erro:focus {
+    border-color: red!important;
+    outline: 0!important;
+    box-shadow: 0 0 0 .25rem rgba(200, 13, 13, 0.30)!important;
+}

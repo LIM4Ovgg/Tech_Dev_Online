@@ -1,0 +1,19 @@
+body {
+    background: linear-gradient(63.13deg, #df4759 30%, transparent 30%, transparent 70%, #df4759 70%);
+}
+
+.flex-fill {
+    display: flex;
+    align-items: center;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+}
+
+body.dark {
+    background: linear-gradient(63.13deg, #202020 30%, transparent 30%, transparent 70%, #202020 70%);
+    color: white!important;
+}

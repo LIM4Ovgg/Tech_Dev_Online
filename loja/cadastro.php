@@ -1,8 +1,8 @@
 <?php
-
 session_start();
 include_once('config.php');
-// print_r($_SESSION);
+$sistema = '';
+
 if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
     header('Location: sistema.php');
 }
@@ -36,7 +36,6 @@ if (isset($_POST['submit'])) {
 <html lang="pt-br">
 
 <?php
-$sistema = '';
 $title = 'Cadastro';
 require_once('head.php');
 ?>
@@ -53,42 +52,17 @@ require_once('head.php');
 
 <body style="min-width:372px;">
     <div class="d-flex flex-column wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom shadow-sm mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="index.php">
-                    <strong>Tech Dev Online</strong>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a href="/index.html" class="nav-link text-white">Principal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/contato.html" class="nav-link text-white">Contato</a>
-                        </li>
-                    </ul>
-                    <div class="align-self-end">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="cadastro.php" class="nav-link text-white">Quero Me Cadastrar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="login.php" class="nav-link text-white">Entrar</a>
-                            </li>
-                            <li class="nav-item">
-                                <span class="badge rounded-pill bg-light text-info position-absolute ms-4 mt-0" title="5 produto(s) no carrinho"><small>5</small></span>
-                                <a href="carrinho.php" class="nav-link text-white">
-                                    <i class="bi-cart" style="font-size:24px;line-height:24px;"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <?php
+        if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
+            if ($adm == "Yes") {
+                require_once('header_logado_adm.php');
+            } else {
+                require_once('header_logado.php');
+            }
+        } else {
+            require_once('header.php');
+        }
+        ?>
 
         <main class="flex-fill">
             <div class="container">
@@ -123,7 +97,7 @@ require_once('head.php');
                                 </div>
                                 <div class="xx">
                                     <div class="form-floating mb-3 col-md-6">
-                                        <input class="form-control" placeholder=" " name="telefone" type="text" id="txtTelefone" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" required />
+                                        <input class="form-control" placeholder=" " name="telefone" type="text" id="txtTelefone" minlength="14" maxlength="15" onkeyup="mascara(this)" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" required />
                                         <label for="txtTelefone">Telefone</label>
 
                                     </div>
@@ -140,7 +114,9 @@ require_once('head.php');
                                     <label for="txtCEP">CEP</label>
                                 </div>
                                 <div class='mb-3 col-md-6 col-lg-8 align-self-end'>
-                                    <div class="result"></div>
+                                    <div id="result" class="result">
+                                        <textarea class="form-control text-muted bg-light" style="height: 58px; font-size: 14px;" disabled>Digite o CEP para buscarmos o endereço.</textarea>
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-floating mb-3 col-md-4">
@@ -210,31 +186,39 @@ require_once('head.php');
     </div>
     <script>
         var el = document.getElementById('txtCEP');
+        var divResult = document.getElementById('result')
 
         el.addEventListener("keyup", get, true);
-        
+
 
         function get() {
             get_endereco(this.value);
         }
 
         function get_endereco(cep) {
-            var url = 'maps.php';
-            var cepArray = {
-                "cep": cep
-            };
+            if (cep.length == 0) {
+                divResult.innerHTML = '<textarea class="form-control text-muted bg-light" style="height: 58px; font-size: 14px;" disabled>Digite o CEP para buscarmos o endereço.</textarea>';
+            } else {
+                var url = 'maps.php';
+                var cepArray = {
+                    "cep": cep
+                };
 
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: cepArray,
-                dataType: "text",
-                success: function(result) {
-                    $(".result").html(result)
-                }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: cepArray,
+                    dataType: "text",
+                    success: function(result) {
+                        $(".result").html(result)
+                    }
+                });
+            }
+
         }
     </script>
+    <script src="assets/js/telefone.js"></script>
+    <script src="assets/js/darkmode.js"></script>
     <script src="vendor/jquery/jquery.js"></script>
     <script src="vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>

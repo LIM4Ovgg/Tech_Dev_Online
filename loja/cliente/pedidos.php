@@ -1,45 +1,36 @@
 <?php
-    require_once('sessionStart.php');
-    $sistema = '';
+session_start();
+$sistema = '../';
+require_once('../logado.php');
+include_once('../config.php');
 
-    if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true))
-    {
-        unset($_SESSION['email']);
-        unset($_SESSION['senha']);
-        header('Location: login.php');
-    }
-    $logado = $_SESSION['email'];
-    if(!empty($_GET['search']))
-    {
-        $data = $_GET['search'];
-        $sql = "SELECT * FROM users WHERE id LIKE '%$data%' or nome LIKE '%$data%' or email LIKE '%$data%' ORDER BY id DESC";
-    }
-    else
-    {
-        $sql = "SELECT * FROM users ORDER BY id DESC";
-    }
-    $result = $conexao->query($sql);
+if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: ../login.php');
+}
+
 ?>
 <!doctype html>
 <html lang="pt-br">
 
 <?php
 $title = 'Area do Cliente :: Pedidos';
-require_once('head.php');
+require_once('../head.php');
 ?>
 </head>
 
 <body>
     <div class="d-flex flex-column wrapper">
-    <?php
+        <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
             if ($adm == true) {
-                require_once('header_logado_adm.php');
-            }else{
-                require_once('header_logado.php');
+                require_once('../header_logado_adm.php');
+            } else {
+                require_once('../header_logado.php');
             }
         } else {
-            require_once('header.php');
+            require_once('../header.php');
         }
         ?>
 
@@ -47,31 +38,16 @@ require_once('head.php');
             <div class="container">
                 <h1>Minha Conta</h1>
                 <div class="row gx-3">
-                    <div class="col-4">
-                        <div class="list-group">
-                            <a href="cliente_dados.php" class="list-group-item list-group-item-action">
-                                <i class="bi-person fs-6"></i> Dados Pessoais
-                            </a>
-                            <a href="cliente_contatos.php" class="list-group-item list-group-item-action">
-                                <i class="bi-mailbox fs-6"></i> Contatos
-                            </a>
-                            <a href="cliente_endereco.php" class="list-group-item list-group-item-action">
-                                <i class="bi-house-door fs-6"></i> Endereço
-                            </a>
-                            <a href="cliente_pedidos.php" class="list-group-item list-group-item-action bg-info text-light">
-                                <i class="bi-truck fs-6"></i> Pedidos
-                            </a>
-                            <a href="cliente_favoritos.php" class="list-group-item list-group-item-action">
-                                <i class="bi-heart fs-6"></i> Favoritos
-                            </a>
-                            <a href="cliente_senha.php" class="list-group-item list-group-item-action">
-                                <i class="bi-lock fs-6"></i> Alterar Senha
-                            </a>
-                            <a href="sistema/sair.php" class="list-group-item list-group-item-action">
-                                <i class="bi-door-open fs-6"></i> Sair
-                            </a>
-                        </div>
-                    </div>
+                    <?php
+                    $dados = '';
+                    $contatos = '';
+                    $endereco = '';
+                    $pedidos = 'bg-info text-light';
+                    $favoritos = '';
+                    $alterar = '';
+                    $cliente = '';
+                    require_once('../cliente_barra.php');
+                    ?>
                     <div class="col-8">
                         <form class="row mb-3">
                             <div class="col-12 col-md-6 mb-3">
@@ -81,8 +57,8 @@ require_once('head.php');
                                         <option value="60">Últimos 60 dias</option>
                                         <option value="90">Últimos 90 dias</option>
                                         <option value="180">Últimos 180 dias</option>
-                                        <option value="360" selected>Últimos 360 dias</option>
-                                        <option value="9999">Todo o período</option>
+                                        <option value="360">Últimos 360 dias</option>
+                                        <option value="9999" selected>Todo o período</option>
                                     </select>
                                     <label>Período</label>
                                 </div>
@@ -97,11 +73,11 @@ require_once('head.php');
                                 </div>
                             </div>
                         </form>
+
                         <div class="accordion" id="divPedidos">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#pedido000010">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pedido000010">
                                         <b>Pedido 000010</b>
                                         <span class="mx-1">(realizado em 11/10/2020)</span>
                                     </button>
@@ -161,8 +137,7 @@ require_once('head.php');
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#pedido000009">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pedido000009">
                                         <b>Pedido 000009</b>
                                         <span class="mx-1">(realizado em 11/10/2020)</span>
                                     </button>
@@ -222,8 +197,7 @@ require_once('head.php');
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#pedido000008">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pedido000008">
                                         <b>Pedido 000008</b>
                                         <span class="mx-1">(realizado em 11/10/2020)</span>
                                     </button>
@@ -283,8 +257,7 @@ require_once('head.php');
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#pedido000007">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pedido000007">
                                         <b>Pedido 000007</b>
                                         <span class="mx-1">(realizado em 11/10/2020)</span>
                                     </button>
@@ -344,8 +317,7 @@ require_once('head.php');
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#pedido000006">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pedido000006">
                                         <b>Pedido 000006</b>
                                         <span class="mx-1">(realizado em 11/10/2020)</span>
                                     </button>
@@ -446,7 +418,8 @@ require_once('head.php');
             </div>
         </footer>
     </div>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/darkmode.js"></script>
+    <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

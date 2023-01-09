@@ -1,6 +1,6 @@
 <?php
-
-require_once('sessionStart.php');
+session_start();
+include_once('config.php');
 $sistema = '';
 
 if (isset($_POST['adicionar'])) {
@@ -72,6 +72,14 @@ $select_stock = $conexao->query($sql);
 $title = 'Página Principal';
 require_once('head.php');
 ?>
+<style>
+    .card-header {
+        min-height: 73px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
 </head>
 
 <body>
@@ -95,7 +103,7 @@ require_once('head.php');
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
             if ($adm == "Yes") {
                 require_once('header_logado_adm.php');
-            }else{
+            } else {
                 require_once('header_logado.php');
             }
         } else {
@@ -192,7 +200,7 @@ require_once('head.php');
                         while ($fetch_stock = mysqli_fetch_assoc($select_stock)) {
                     ?>
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                                <div class="card text-center bg-light">
+                                <div class="card text-center bg-transparent">
                                     <a href="index.php?favoritar=<?= $fetch_stock['id'] ?>" class="position-absolute end-0 p-2 text-info">
                                         <i class="<?php
                                                     $nome = $fetch_stock['nome'];
@@ -205,11 +213,13 @@ require_once('head.php');
                                     </a>
                                     <img src="<?php echo $fetch_stock['imagem'] ?>" class="card-img-top">
                                     <div class="card-header">
-                                        de <s>R$ 5.024,01</s>
-                                        <h5><?php echo 'Por: R$' . number_format($fetch_stock['valor'], 2, ',', '.') ?></h5>
+                                        <div>
+                                            de <s>R$ 5.024,01</s>
+                                            <h5><?php echo 'Por: R$' . number_format($fetch_stock['valor'], 2, ',', '.') ?></h5>
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?php echo $fetch_stock['nome'] ?></h5>
+                                        <h5 class="card-title truncar-3l"><?php echo $fetch_stock['nome'] ?></h5>
                                         <p class="card-text truncar-3l">
                                             <?php echo $fetch_stock['descricao'] ?>
                                         </p>
@@ -318,8 +328,8 @@ require_once('head.php');
                 window.location = 'index.php';
             }
         }
-        
     </script>
+    <script src="assets/js/darkmode.js"></script>
     <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

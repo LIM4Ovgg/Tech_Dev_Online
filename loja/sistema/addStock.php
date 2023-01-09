@@ -4,32 +4,6 @@ $sistema = '../';
 require_once('../logado.php');
 require_once('../adm.php');
 include_once('../config.php');
-
-if (!empty($_GET['id'])) {
-    include_once('../config.php');
-
-    $id = $_GET['id'];
-
-    $sqlSelect = "SELECT * FROM stock WHERE id=$id";
-
-    $result = $conexao->query($sqlSelect);
-
-    if ($result->num_rows > 0) {
-        while ($user_data = mysqli_fetch_assoc($result)) {
-            $nome = $user_data["nome"];
-            $valor = $user_data["valor"];
-            $quantidade = $user_data["quantidade"];
-            $descricao = $user_data["descricao"];
-            $imagem = $user_data["imagem"];
-        }
-    } else {
-        header('Location: estoque.php');
-    }
-} else {
-    header('Location: estoque.php');
-}
-
-
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -40,7 +14,7 @@ require_once('../head.php');
 ?>
 </head>
 
-<body style="min-width:372px;" onLoad="onStart()">
+<body style="min-width:372px;">
     <div class="d-flex flex-column wrapper">
         <?php
         if ((isset($_SESSION['email']) == true) and (isset($_SESSION['senha']) == true)) {
@@ -58,7 +32,7 @@ require_once('../head.php');
             <div class="container">
                 <h1>Alterando Estoque</h1>
                 <hr>
-                <form class="mt-3" enctype="multipart/form-data" action="saveEditEstoque.php" method="POST">
+                <form class="mt-3" enctype="multipart/form-data" action="saveAddEstoque.php" method="POST">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <!--
@@ -72,28 +46,28 @@ require_once('../head.php');
                             <fieldset>
                                 <legend>Imagem</legend>
                                 <div class="form-floating mb-3 col-md-8">
-                                    <input class="form-control" type="text" name="imagem" id="txtImagem" placeholder=" " value="<?= $imagem ?>" autofocus required />
+                                    <input class="form-control" type="text" name="imagem" id="txtImagem" placeholder=" " autofocus required />
                                     <label for="txtNome">URL</label>
                                 </div>
                             </fieldset>
                             <fieldset>
                                 <legend>Nome</legend>
                                 <div class="form-floating mb-3 col-md-8">
-                                    <input class="form-control" type="text" name="nome" id="txtNome" placeholder=" " value="<?= $nome ?>" required />
+                                    <input class="form-control" type="text" name="nome" id="txtNome" placeholder=" " required />
                                     <label for="txtNome">Nome</label>
                                 </div>
                             </fieldset>
                             <fieldset>
                                 <legend>Preço</legend>
                                 <div class="form-floating mb-3 col-md-6">
-                                    <input class="form-control" placeholder=" " name="valor" type="text" id="txtValor" value="<?= $valor ?>" required />
+                                    <input class="form-control" placeholder=" " name="valor" type="text" id="txtValor" required />
                                     <label for="txtValor">preço</label>
                                 </div>
                             </fieldset>
                             <fieldset>
                                 <legend>Quantidade</legend>
                                 <div class="form-floating mb-3 col-md-6">
-                                    <input class="form-control" placeholder=" " name="quantidade" type="text" id="txtQuantidade" value="<?= $quantidade ?>" required />
+                                    <input class="form-control" placeholder=" " name="quantidade" type="text" id="txtQuantidade" required />
                                     <label for="txtValor">quantidade</label>
                                 </div>
                             </fieldset>
@@ -109,11 +83,11 @@ require_once('../head.php');
                             <fieldset class="row gx-3">
                                 <legend>Senha do Admin</legend>
                                 <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" type="password" name="senha" id="txtSenha" placeholder=" " required />
+                                    <input class="form-control" type="password" name="senha" id="txtSenha" placeholder=" " autocomplete="off" required />
                                     <label for="txtSenha">Senha</label>
                                 </div>
                                 <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" name="confirm_senha" id="txtConfirmacaoSenha" placeholder=" " type="password" required />
+                                    <input class="form-control" name="confirm_senha" id="txtConfirmacaoSenha" placeholder=" " autocomplete="off" type="password" required />
                                     <label class="form-label" for="txtConfirmacaoSenha">Confirmação da Senha</label>
                                 </div>
                             </fieldset>
@@ -122,9 +96,8 @@ require_once('../head.php');
                     <hr />
                     <div class="mb-3 text-left">
                         <a class="btn btn-lg btn-light btn-outline-danger" href="estoque.php">Cancelar</a>
-                        <input type="hidden" name="logado" id="txtLogado" value="<?= $logado ?>" />
-                        <input type="hidden" name="id" value="<?php echo $id ?>">
-                        <input type="submit" name="update" id="update" value="Salvar Alterações" class="btn btn-lg btn-success" />
+                        <input type="hidden" name="email" id="txtEmail" value="<?= $logado ?>" />
+                        <input type="submit" name="add" id="add" value="Adicionar Item" class="btn btn-lg btn-success" />
                     </div>
                 </form>
             </div>
@@ -156,11 +129,6 @@ require_once('../head.php');
     </div>
     <script src="../assets/js/darkmode.js"></script>
     <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script>
-        function onStart() {
-            document.getElementById("txtDescricao").value = "<?= $descricao ?>";
-        }
-    </script>
 </body>
 
 </html>
